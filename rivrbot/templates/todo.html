@@ -1,0 +1,14 @@
+
+<h1> Todos render </h1>
+<ul>
+  {% for todo_item in all_items %}
+    <li> {{ todo_item.content }}</li>
+  {% endfor %}
+</ul>
+
+
+<form class="" action="/addtodo/" method="post">
+  {% csrf_token %}
+  <input type="text" name="content" >
+  <input type="submit" value="Add">
+</form>
