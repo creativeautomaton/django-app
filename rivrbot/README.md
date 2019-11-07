@@ -276,4 +276,4 @@ The API endpoints are available at /api/v1/. The token refers to the token retur
 
 ## Author
 
-- **Peter Zernia** - (https://github.com/peterzernia)
+- **Zachary Kraft** - (https://github.com/Creativeautomaton)
