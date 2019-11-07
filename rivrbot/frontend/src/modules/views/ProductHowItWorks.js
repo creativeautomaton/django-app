@@ -6,6 +6,11 @@ import Container from '@material-ui/core/Container';
 import Button from '../components/Button';
 import Typography from '../components/Typography';
 import StorageIcon from '@material-ui/icons/Storage';
+import SwapCallsIcon from '@material-ui/icons/SwapCalls';
+import SelectAllIcon from '@material-ui/icons/SelectAll';
+import MobileScreenShareIcon from '@material-ui/icons/MobileScreenShare';
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+
 
 const styles = theme => ({
   root: {
@@ -60,45 +65,74 @@ function ProductHowItWorks(props) {
     <section className={classes.root}>
       <Container className={classes.container}>
         <Typography variant="h3" marked="center"  >
-          How It Works
+          How RivrBot Works
+
         </Typography>
-        <Typography variant="h5" marked="center" >
-            With Tardigrade cloud storage, your files are encrypted and split into pieces client-side
-            before being distributed across our network of high-performance storage nodes.
-         </Typography>
+        <Grid container spacing={8}>
+            <Grid item xs={12} md={2} > </Grid>
+            <Grid item xs={12} md={8} >
+              <div className={classes.item} style={{ padding: 40 }} align="center">
+                <Typography variant="h5" marked="center" >
+                  { 'With RivrBot AI Assistant, your requests are encrypted and split into pieces client-side'}
+                  { 'before being distributed across our network of high-performance Machine Learning nodes.'}
+                 </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={12} md={2} > </Grid>
+          </Grid>
         <div>
-          <Grid container spacing={5}>
-            <Grid item xs={12} md={4}>
+          <Grid container spacing={1}>
+          <Grid item xs={12} md={1}>
+            <div className={classes.item}>
+
+            </div>
+          </Grid>
+            <Grid item xs={12} md={3}>
               <div className={classes.item}>
-                <StorageIcon
-                  color="primary"
+                <SwapCallsIcon
+                  color="secondary"
                   style={{ fontSize: 80, }}
                 />
                 <Typography variant="h5" align="center">
-                  Appointment every Wednesday 9am.
+                  Request Realestate Sellers or Buyers
                 </Typography>
               </div>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={1}>
               <div className={classes.item}>
-                <StorageIcon
-                  color="primary"
+                <DoubleArrowIcon
+                  color="primary.dark"
+                  style={{ fontSize: 80, }}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <div className={classes.item}>
+                <SelectAllIcon
+                  color="secondary"
                   style={{ fontSize: 80, }}
                 />
                 <Typography variant="h5" align="center">
-                  First come, first served. Our offers are in limited quantities, so be quick.
+                  Select contacts and sellers lists
                 </Typography>
               </div>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={1}>
               <div className={classes.item}>
-                <StorageIcon
-                  color="primary"
+                <DoubleArrowIcon
+                  color="primary.dark"
+                  style={{ fontSize: 80, }}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <div className={classes.item}>
+                <MobileScreenShareIcon
+                  color="secondary"
                   style={{ fontSize: 80, }}
                 />
                 <Typography variant="h5" align="center">
-                  {'New offers every week. New experiences, new surprises. '}
-                  {'Your Sundays will no longer be alike.'}
+                  {' Manage and Monitor Client and Seller activities in reall-time. '}
                 </Typography>
               </div>
             </Grid>

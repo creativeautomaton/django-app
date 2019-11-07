@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { ExpandMore, ArrowDownward } from '@material-ui/icons';
-// import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-
+import { Link } from 'react-router-dom';
+// import { HashLink as Link } from 'react-router-hash-link';
 
 const styles = theme => ({
   root: {
@@ -63,7 +64,17 @@ function ProductHeroLayout(props) {
         {children}
         <div className={classes.backdrop} />
         <div className={clsx(classes.background, backgroundClassName)} />
-        <ArrowDownward fontSize="large" />
+        <Button component={Link}
+          to="#values"
+          hash="values"
+          color="inherit"
+        >
+         <IconButton aria-label="delete">
+          <ArrowDownward fontSize="large" color="primary"   style={{
+               fontSize: 50
+            }}/>
+        </IconButton>
+      </Button>
       </Container>
     </section>
   );
