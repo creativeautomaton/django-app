@@ -28,6 +28,7 @@ import Register from './Register'
 import Search from './Search'
 
 
+
 export function Layout(props) {
   const {
     authenticated,
@@ -75,7 +76,7 @@ export function Layout(props) {
           <Route exact path="/" component={Home} />
           <Route path="/search" component={Search} />
           <Route path="/feed" component={Feed} />
-          <PrivateRoute {...props} path="/profile" component={Profile} />
+          <PrivateRoute {...props} path="/profile" component={Profile}  />
           <Route path="/u/:username" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
@@ -85,7 +86,7 @@ export function Layout(props) {
         </div>
       ) : (
         <div className="centered">
-          <DotLoader size={50} color="#2196f3" className="content" />
+          <DotLoader size={80} color="primary" className="content" />
         </div>
       )}
     </Router>

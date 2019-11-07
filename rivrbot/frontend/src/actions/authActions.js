@@ -50,6 +50,8 @@ token to authenticate the user. This token is stored in localStorage.
 export const authRegister = (username, email, password1, password2, home) => (dispatch) => {
   localStorage.removeItem('token')
   dispatch(authStart())
+  // console.log(username, email, password1, password2, home);
+ const home = 240;
   axios.post(`${process.env.REACT_APP_API_URL}/api/v1/rest-auth/registration/`, {
     username,
     email,
@@ -58,6 +60,7 @@ export const authRegister = (username, email, password1, password2, home) => (di
     home,
   })
     .then((response) => {
+      // console.log(response);
       const token = response.data.key
       localStorage.setItem('token', token)
       localStorage.setItem('username', username)
@@ -65,9 +68,10 @@ export const authRegister = (username, email, password1, password2, home) => (di
       dispatch(fetchUser())
       dispatch({ type: 'ADD_SUCCESS', success: 'You have successfully registered.' })
     })
-    .catch((err) => {
+    .catch((error) => {
+      console.log(error.response.data);
       dispatch(authFail())
-      dispatch({ type: 'ADD_ERROR', error: err })
+      dispatch({ type: 'ADD_ERROR', error: error })
     })
 }
 

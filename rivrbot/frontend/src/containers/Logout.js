@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { func } from 'prop-types'
 import { authLogout } from '../actions/authActions'
+import { Redirect } from 'react-router-dom'
+import { bool, func, shape } from 'prop-types'
 
 export function Logout(props) {
   useEffect(() => {
@@ -14,7 +15,12 @@ export function Logout(props) {
 
     return (
       <div className="content">
-        You have been logged out.
+        <p>You have been logged out.</p>
+        {
+          !props.authenticated
+          ? <Redirect to={props.location.state ? props.location.state.from.pathname : '/'} />
+          : <Redirect to={props.location.state ? props.location.state.from.pathname : '/login'} />
+        }
       </div>
     )
 }

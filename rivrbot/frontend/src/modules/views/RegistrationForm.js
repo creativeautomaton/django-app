@@ -15,11 +15,15 @@ import countries from '../country_data.json'
 
 export default function RegistrationForm(props) {
   const [country, setCountry] = useState('')
+
+
   const { authenticating, handleSubmit } = props
 
   const handleChange = (event) => {
     setCountry(event.target.value)
   }
+
+
 
 
   /*
@@ -42,18 +46,24 @@ export default function RegistrationForm(props) {
       <Card style={{ maxWidth: 400, margin: '0 auto' }}>
         <CardHeader title="Register" />
         <CardContent>
+
           <form onSubmit={handleSubmit}>
             <TextField className="user-auth" type="text" name="username" label="Username" required />
             <br />
             <TextField className="user-auth" type="text" name="email" label="Email" required />
             <br />
-            <TextField className="user-auth" type="password" name="password1" label="Password" required />
+            <TextField error className="user-auth" type="password" name="password1" label="Password" required
+
+            helperText="Incorrect entry."
+             />
             <br />
-            <TextField className="user-auth" type="password" name="password2" label="Confirm Password" required />
+            <TextField  error className="user-auth" type="password" name="password2" label="Confirm Password" required
+            helperText="Incorrect entry."
+            />
             <br />
             <FormControl>
               <InputLabel htmlFor="country">Country</InputLabel>
-              <Select style={{ textAlign: 'left' }} className="user-auth" name="country" onChange={handleChange} value={country}>
+              <Select style={{ textAlign: 'left', display: 'none' }} className="user-auth" name="country" onChange={handleChange} value={country}>
                 {menuItems}
               </Select>
             </FormControl>

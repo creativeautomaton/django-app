@@ -33,7 +33,7 @@ export function Register(props) {
       {
       !authenticated
       ? <RegistrationForm handleSubmit={handleSubmit} {...props} />
-      : <Redirect to={{ pathname: '/' }} />
+      : <Redirect to={{ pathname: '/profile' }} />
     }
     </div>
   )

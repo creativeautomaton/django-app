@@ -21,7 +21,7 @@ export function Login(props) {
       {
         !props.authenticated
         ? <LoginForm handleSubmit={handleSubmit} {...props} />
-        : <Redirect to={props.location.state ? props.location.state.from.pathname : '/'} />
+        : <Redirect to={props.location.state ? props.location.state.from.pathname : '/profile'} />
       }
     </div>
   )

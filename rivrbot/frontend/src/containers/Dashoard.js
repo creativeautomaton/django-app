@@ -15,8 +15,8 @@ import Tooltip from '@material-ui/core/Tooltip'
 import {
   openCountryModal,
   closeCountryModal,
-  openEditProfileModal,
-  closeEditProfileModal,
+  openEditDashboardModal,
+  closeEditDashboardModal,
   openPostModal,
   closePostModal,
   openUpdatePostModal,
@@ -34,17 +34,17 @@ import {
 } from '../actions/tripReportActions'
 import { removeError } from '../actions/errorActions'
 import { toggleFavorite } from '../actions/favoriteActions'
-import OpenStreetMap from '../modules/views/OpenStreetMap'
-import EditProfileModal from '../modules/views/EditProfileModal'
-import TripReportThumbnail from '../modules/views/TripReportThumbnail'
-import TripReportModal from '../modules/views/TripReportModal'
-import ConfirmDeleteModal from '../modules/views/ConfirmDeleteModal'
-import CountryModal from '../modules/views/CountryModal'
-import CopyLinkModal from '../modules/views/CopyLinkModal'
-import PostModal from '../modules/views/PostModal'
+import OpenStreetMap from '../components/OpenStreetMap'
+import EditDashboardModal from '../components/EditDashboardModal'
+import TripReportThumbnail from '../components/TripReportThumbnail'
+import TripReportModal from '../components/TripReportModal'
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal'
+import CountryModal from '../components/CountryModal'
+import CopyLinkModal from '../components/CopyLinkModal'
+import PostModal from '../components/PostModal'
 
 
-export function Profile(props) {
+export function Dashboard(props) {
   const {
     next,
     fetchingUserNext,
@@ -121,7 +121,7 @@ export function Profile(props) {
   }
 
   /*
-  This handle submit works with the edit profile modal.
+  This handle submit works with the edit Dashboard modal.
   */
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -132,9 +132,9 @@ export function Profile(props) {
       userCountryList,
       Number(e.target.country.value),
       e.target.biography.value,
-      'Your profile has been updated.',
+      'Your dashboard has been updated.',
     )
-    props.closeEditProfileModal()
+    props.closeEditDashboardModal()
   }
 
   const handleClick = (e) => {
@@ -148,22 +148,22 @@ export function Profile(props) {
     </Grid>
     ))
 
-  const isEdit = location.pathname === '/profile'
+  const isEdit = location.pathname === '/dashboard'
 
   if (posting || updating) {
  return (
    <div>
-     <DotLoader size={50} color="primary.dark" className="content" />
+     <DotLoader size={50} color="#2196f3" className="content" />
      <br />
    </div>
 )
  }
 
   return (
-    <div id="scroll" className="content" color="primary.dark" >
+    <div id="scroll" className="content">
       <CopyLinkModal {...props} />
       {fetched && <CountryModal {...props} />}
-      <EditProfileModal handleSubmit={handleSubmit} {...props} />
+      <EditDashboardModal handleSubmit={handleSubmit} {...props} />
       <PostModal
         {...props}
         handlePostSubmit={handlePostSubmit}
@@ -187,8 +187,8 @@ export function Profile(props) {
           {
             isEdit && (
               <div style={{ height: 40 }}>
-                <Button color="secondary"  size="small" variant="outlined" onClick={() => props.openEditProfileModal(user)}>
-                Edit Profile
+                <Button size="small" variant="outlined" onClick={() => props.openEditDashboardModal(user)}>
+                Edit Dashboard
                 </Button>
               </div>
             )
@@ -228,8 +228,8 @@ const mapState = (state) => ({
     fetched: state.user.fetched,
     fetchingUserNext: state.tripReport.fetchingUserNext,
     searchedCountry: state.country.country,
-    showEditProfileModal: state.modal.showEditProfileModal,
-    modalProfile: state.modal.modalProfile,
+    showEditDashboardModal: state.modal.showEditDashboardModal,
+    modalDashboard: state.modal.modalDashboard,
     userCountries: state.user.user.countries,
     showCountryModal: state.modal.showCountryModal,
     modalCountry: state.modal.modalCountry,
@@ -249,8 +249,8 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => bindActionCreators({
     fetchCountry,
     putUserData,
-    openEditProfileModal,
-    closeEditProfileModal,
+    openEditDashboardModal,
+    closeEditDashboardModal,
     openCountryModal,
     closeCountryModal,
     removeError,
@@ -270,9 +270,9 @@ const mapDispatch = (dispatch) => bindActionCreators({
     closeCopyLinkModal,
   }, dispatch)
 
-export default connect(mapState, mapDispatch)(Profile)
+export default connect(mapState, mapDispatch)(Dashboard)
 
-Profile.propTypes = {
+Dashboard.propTypes = {
   pk: number,
   authenticated: bool.isRequired,
   user: shape({}).isRequired,
@@ -280,8 +280,8 @@ Profile.propTypes = {
   fetched: bool.isRequired,
   fetchingUserNext: bool.isRequired,
   searchedCountry: arrayOf(shape({})).isRequired,
-  showEditProfileModal: bool.isRequired,
-  modalProfile: shape({}).isRequired,
+  showEditDashboardModal: bool.isRequired,
+  modalDashboard: shape({}).isRequired,
   userCountries: arrayOf(shape({})).isRequired,
   showCountryModal: bool.isRequired,
   modalCountry: shape({}).isRequired,
@@ -298,8 +298,8 @@ Profile.propTypes = {
   updating: bool.isRequired,
   fetchCountry: func.isRequired,
   putUserData: func.isRequired,
-  openEditProfileModal: func.isRequired,
-  closeEditProfileModal: func.isRequired,
+  openEditDashboardModal: func.isRequired,
+  closeEditDashboardModal: func.isRequired,
   openCountryModal: func.isRequired,
   closeCountryModal: func.isRequired,
   removeError: func.isRequired,
@@ -320,7 +320,7 @@ Profile.propTypes = {
   location: shape({}).isRequired,
 }
 
-Profile.defaultProps = {
+Dashboard.defaultProps = {
   modalLink: '',
   pk: null,
   next: '',

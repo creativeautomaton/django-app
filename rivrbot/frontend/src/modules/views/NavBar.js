@@ -38,7 +38,6 @@ const NavBar = ({ authenticated }) => (
               </Tooltip>
             :  <span></span>
         }
-
         {
             authenticated
             ? <Button component={Link} to="/logout" color="inherit">Logout</Button>
