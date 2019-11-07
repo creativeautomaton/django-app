@@ -8,14 +8,18 @@ export default function App() {
   const theme = createMuiTheme({
     palette: {
       primary: {
-        light: '#69696a',
-        main: '#28282a',
-        dark: '#1e1e1f',
+        light: '#C5CAE9',
+        main:  '#3F51B5',
+        dark:  '#303F9F',
       },
       secondary: {
-        light: '#fff5f8',
-        main: '#ff3366',
-        dark: '#e62958',
+        light: '#FFECB3',
+        main: '#FFC107',
+        dark: '#FFA000',
+      },
+      font: {
+        light: '#FFF',
+        dark: '#333',
       },
       warning: {
         main: '#ffc071',
@@ -32,12 +36,12 @@ export default function App() {
       },
   },
   typography: {
-    fontFamily: "'Work Sans', sans-serif",
-    fontSize: 14,
+    fontFamily: "'Poppins', sans-serif",
+    fontSize: 12,
     fontWeightLight: 300, // Work Sans
     fontWeightRegular: 400, // Work Sans
     fontWeightMedium: 700, // Roboto Condensed
-    fontFamilySecondary: "'Roboto Condensed', sans-serif",
+    fontFamilySecondary: "'Roboto', sans-serif",
   },
   overides: {
       CardActions: {

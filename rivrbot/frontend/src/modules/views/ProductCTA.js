@@ -21,7 +21,8 @@ const styles = theme => ({
   card: {
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.primary.light,
     padding: theme.spacing(8, 3),
   },
   cardContent: {
@@ -78,14 +79,14 @@ function ProductCTA(props) {
           <div className={classes.card}>
             <form onSubmit={handleSubmit} className={classes.cardContent}>
               <Typography variant="h2" component="h2" gutterBottom>
-                Receive offers
+                 Join the waitlist
               </Typography>
               <Typography variant="h5">
-                Taste the holidays of the everyday close to home.
+                The first 10,000 clients on the waitlist will get to Trial RivrBot for their first 30 days after production launch.
               </Typography>
               <TextField noBorder className={classes.textField} placeholder="Your email" />
-              <Button type="submit" color="primary" variant="contained" className={classes.button}>
-                Keep me updated
+              <Button type="submit" color="secondary" variant="contained" className={classes.button}>
+                Join the List
               </Button>
             </form>
           </div>
@@ -94,7 +95,7 @@ function ProductCTA(props) {
           <Hidden smDown>
             <div className={classes.imageDots} />
             <img
-              src="https://images.unsplash.com/photo-1527853787696-f7be74f2e39a?auto=format&fit=crop&w=750&q=80"
+              src="https://images.pexels.com/photos/830891/pexels-photo-830891.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
               alt="call to action"
               className={classes.image}
             />
@@ -104,7 +105,7 @@ function ProductCTA(props) {
       <Snackbar
         open={open}
         onClose={handleClose}
-        message="We will send you our best offers, once a week."
+        message="We will send you confirmation, asap."
       />
     </Container>
   );

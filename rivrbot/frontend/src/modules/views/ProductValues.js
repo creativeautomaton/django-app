@@ -4,12 +4,15 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '../components/Typography';
+import AmpStoriesIcon from '@material-ui/icons/AmpStories';
+import DataUsageIcon from '@material-ui/icons/DataUsage';
+import StorageIcon from '@material-ui/icons/Storage';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     overflow: 'hidden',
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.primary.light,
   },
   container: {
     marginTop: theme.spacing(15),
@@ -51,11 +54,12 @@ function ProductValues(props) {
         <Grid container spacing={5}>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <img
-                className={classes.image}
-                src="/static/themes/onepirate/productValues1.svg"
-                alt="suitcase"
+
+              <AmpStoriesIcon
+                color="primary"
+                style={{ fontSize: 80, }}
               />
+
               <Typography variant="h6" className={classes.title}>
                 The best luxury hotels
               </Typography>
@@ -67,13 +71,12 @@ function ProductValues(props) {
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <img
-                className={classes.image}
-                src="/static/themes/onepirate/productValues2.svg"
-                alt="graph"
+              <DataUsageIcon
+                color="secondary"
+                style={{ fontSize: 80, }}
               />
               <Typography variant="h6" className={classes.title}>
-                New experiences
+                New Ways to use Data
               </Typography>
               <Typography variant="h5">
                 {'Privatize a pool, take a Japanese bath or wake up in 900m2 of garden… '}
@@ -83,10 +86,9 @@ function ProductValues(props) {
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <img
-                className={classes.image}
-                src="/static/themes/onepirate/productValues3.svg"
-                alt="clock"
+              <StorageIcon
+                color="primary"
+                style={{ fontSize: 80, }}
               />
               <Typography variant="h6" className={classes.title}>
                 Exclusive rates

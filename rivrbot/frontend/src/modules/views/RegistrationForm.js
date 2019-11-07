@@ -52,7 +52,7 @@ export default function RegistrationForm(props) {
             <TextField className="user-auth" type="password" name="password2" label="Confirm Password" required />
             <br />
             <FormControl>
-              <InputLabel htmlFor="country">Home Country</InputLabel>
+              <InputLabel htmlFor="country">Country</InputLabel>
               <Select style={{ textAlign: 'left' }} className="user-auth" name="country" onChange={handleChange} value={country}>
                 {menuItems}
               </Select>

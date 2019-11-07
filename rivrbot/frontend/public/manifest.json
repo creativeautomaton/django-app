@@ -1,6 +1,6 @@
 {
-  "short_name": "Wanderlist",
-  "name": "Wanderlist Web App",
+  "short_name": "RivrBot",
+  "name": "RivrBot Web App",
   "icons": [
     {
       "src": "https://github.com/peterzernia/wanderlist/blob/master/images/favicon.svg",
