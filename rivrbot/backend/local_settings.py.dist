@@ -1,0 +1,16 @@
+DEBUG = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
+}
+
+SECRET_KEY = 'your secret django key'
+EMAIL_USER = 'your email username'
+EMAIL_PASS = 'your gmail app password'

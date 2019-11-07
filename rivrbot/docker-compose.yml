@@ -1,0 +1,34 @@
+version: "2"
+
+services:
+  wanderlist:
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    links:
+      - db
+  frontend:
+    build: ./frontend
+    command: npm start
+    env_file: ./frontend/.env
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+  db:
+    hostname: db
+    image: postgres:11
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+volumes:
+  node_modules:
+  postgres_data:
