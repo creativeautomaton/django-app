@@ -271,8 +271,8 @@ The API endpoints are available at /api/v1/. The token refers to the token retur
 - [Docker](https://www.docker.com/) - Development Container
 - [Travis CI](https://travis-ci.com/) - Continuous Integration/Testing & Deployment
 - [Heroku](https://heroku.com/) - Hosting
-- [Zappa](https://zappa.com/) - Django API Serverless Setup
-- [AWS](https://aws.com/) - API gateway and S3 bucket Storage
+- [Zappa](https://github.com/Miserlou/Zappa) - Django API Serverless Setup
+- [AWS](https://aws.amazon.com/api-gateway/) - API gateway and S3 bucket Storage
 
 ## Author
 
