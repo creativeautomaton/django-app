@@ -1,13 +1,9 @@
-# Wanderlist
-![](https://travis-ci.com/peterzernia/wanderlist.svg?branch=master)
+# RivrBot
 
-Wanderlist is a responsive, single-page travel web application built on the Django
-framework with a Reactjs frontend. Users can create a custom map of all the countries they have traveled to, as well as write Trip Reports about their travels.
-
-Now available on [Google Play](https://play.google.com/store/apps/details?id=dev.wanderlist.wanderlist)
+RivrBot is a responsive, single-page  web application built on the Django
+framework with a Reactjs frontend.
 
 ## Development
-
 Create backend/local_settings.py and frontend/.env files for development from their respective .dist files
 and fill them out with the appropriate environment variables.
 
@@ -137,7 +133,7 @@ The API endpoints are available at /api/v1/. The token refers to the token retur
   ```
   {
     "count": 12,
-    "next": "http://www.wanderlist.dev/api/v1/reports/?page=2",
+    "next": "http://www.RivrBot.dev/api/v1/reports/?page=2",
     "previous": null,
     "results": [
       ...
@@ -251,7 +247,7 @@ The API endpoints are available at /api/v1/. The token refers to the token retur
   }
   ```
 
-- GET users/?search=peterzernia  
+- GET users/?search=RivrBot  
   Response:
   200 OK
 
@@ -259,7 +255,7 @@ The API endpoints are available at /api/v1/. The token refers to the token retur
   [
     {
         "pk": 1,
-        "username": "peterzernia",
+        "username": "rivrbot",
         ...
     }
   ]
@@ -275,6 +271,8 @@ The API endpoints are available at /api/v1/. The token refers to the token retur
 - [Docker](https://www.docker.com/) - Development Container
 - [Travis CI](https://travis-ci.com/) - Continuous Integration/Testing & Deployment
 - [Heroku](https://heroku.com/) - Hosting
+- [Zappa](https://zappa.com/) - Django API Serverless Setup
+- [AWS](https://aws.com/) - API gateway and S3 bucket Storage
 
 ## Author
 
