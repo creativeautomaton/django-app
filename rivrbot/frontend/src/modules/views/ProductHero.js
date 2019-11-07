@@ -12,7 +12,7 @@ const styles = theme => ({
   background: {
     backgroundImage: `url(${backgroundImage})`,
     backgroundColor: '#7fc7d9', // Average color of the background image.
-    backgroundPosition: 'center',
+    backgroundPosition: 'right',
   },
   button: {
     minWidth: 200,
@@ -36,16 +36,16 @@ function ProductHero(props) {
     <ProductHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
-      <Typography color="inherit" align="center" variant="h2" marked="center">
+      <Typography color="inherit" align="left" variant="h2" marked="center">
         Advanced Real Estate Leads
       </Typography>
-      <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
+      <Typography color="inherit" align="left" variant="h5" className={classes.h5}>
         Better leads, Faster connections, Targeted Markets.
       </Typography>
       <Button
         color="secondary"
         variant="contained"
-        size="large"
+        size="large" 
         className={classes.button}
         component="a"
         href="/register/"

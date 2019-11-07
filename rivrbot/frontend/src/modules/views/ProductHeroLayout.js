@@ -60,17 +60,10 @@ function ProductHeroLayout(props) {
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
-        <img
-          src="/static/themes/onepirate/productHeroWonder.png"
-          alt=" "
-          width="147"
-          height="80"
-        />
         {children}
         <div className={classes.backdrop} />
         <div className={clsx(classes.background, backgroundClassName)} />
         <ArrowDownward fontSize="large" />
-
       </Container>
     </section>
   );

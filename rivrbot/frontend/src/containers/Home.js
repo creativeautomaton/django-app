@@ -57,7 +57,7 @@ export function Home(props) {
         <ProductCategories />
         <ProductHowItWorks />
         <ProductCTA />
-        <ProductSmokingHero />
+        <AppFooter />
       </React.Fragment>
     </div>
   )
