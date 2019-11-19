@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
- shape, string, bool, func,
+ shape, string, bool, func, PropTypes
 } from 'prop-types'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
@@ -17,6 +17,8 @@ import NavBar from '../modules/views/NavBar'
 import PrivateRoute from '../modules/views/PrivateRoute'
 import Success from '../modules/views/Success'
 
+// Pages
+import Dashboard from './Dashboard'
 import Profile from './Profile'
 import Feed from './Feed'
 import ForgotPassword from './ForgotPassword'
@@ -28,14 +30,21 @@ import Register from './Register'
 import Search from './Search'
 
 
-
 export function Layout(props) {
   const {
     authenticated,
     error,
     success,
     fetching,
-  } = props
+  } = props;
+
+  const { classes } = props;
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -55,41 +64,67 @@ export function Layout(props) {
 
     fetchData()
     // eslint-disable-next-line
-  }, [props.authCheckState, authenticated, props.fetchFeaturedTripReport, props.fetchTripReports, props.fetchUser, props.fetchUserTripReports])
+  }, [
+    props.authCheckState,
+    authenticated,
+    props.fetchFeaturedTripReport,
+    props.fetchTripReports,
+    props.fetchUser,
+    props.fetchUserTripReports
+  ])
 
   return (
-    <Router>
-      {!fetching ? (
-        <div>
-          <NavBar {...props} />
-          {/*
-          Errors are added if there are server errors, authentication errors,
-          errors while posting content, etc. Succeses are added to give users
-          feedback when they have successfully added a country to their map,
-          deleted a post, etc. The removeError function is run on every
-          components Unmount, so that errors and sucesses do not persist
-          through navigation. Users can also remove these by clicking the 'x'.
-        */}
-          {error && <Error {...props} />}
-          {success && <Success {...props} />}
 
-          <Route exact path="/" component={Home} />
-          <Route path="/search" component={Search} />
-          <Route path="/feed" component={Feed} />
-          <PrivateRoute {...props} path="/profile" component={Profile}  />
-          <Route path="/u/:username" component={Profile} />
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/register" component={Register} />
-          <Route path="/password-reset" component={ForgotPassword} />
-          <Route path="/p/:slug" component={Post} />
-        </div>
-      ) : (
-        <div className="centered">
-          <DotLoader size={80} color="primary" className="content" />
-        </div>
-      )}
-    </Router>
+        <Router>
+          {!fetching ? (
+
+            <div>
+
+                <NavBar {...props} > </NavBar>
+
+                 
+                {/*
+                Errors are added if there are server errors, authentication errors,
+                errors while posting content, etc. Succeses are added to give users
+                feedback when they have successfully added a country to their map,
+                deleted a post, etc. The removeError function is run on every
+                components Unmount, so that errors and sucesses do not persist
+                through navigation. Users can also remove these by clicking the 'x'.
+              */}
+                {error && <Error {...props} />}
+                {success && <Success {...props} />}
+
+                <Route exact path="/" component={Home} />
+                <Route path="/search" component={Search} />
+                <Route path="/feed" component={Feed} />
+                <PrivateRoute {...props} path="/profile" component={Profile}  />
+                <Route path="/u/:username" component={Profile} />
+                <PrivateRoute {...props} path="/dashboard" component={Dashboard}  />
+                <Route path="/login" component={Login} />
+                <Route path="/logout" component={Logout} />
+                <Route path="/register" component={Register} />
+                <Route path="/password-reset" component={ForgotPassword} />
+                <Route path="/p/:slug" component={Post} />
+
+
+              {/*
+                <Header {...props} />
+                <Content {...props} />
+                <AppAppBar {...props} />
+
+              */}
+
+
+
+
+            </div>
+          ) : (
+            <div className="centered">
+              <DotLoader size={80} color="primary" className="content" />
+            </div>
+          )}
+        </Router>
+
   )
 }
 
@@ -113,10 +148,13 @@ const mapDispatch = (dispatch) => bindActionCreators(
     dispatch,
   )
 
+// export default withStyles(styles)(Layout);
+
 export default connect(
   mapState,
   mapDispatch,
-)(Layout)
+)(Layout);
+
 
 Layout.propTypes = {
   error: shape({}),
@@ -130,6 +168,7 @@ Layout.propTypes = {
   fetchTripReports: func.isRequired,
   fetchFeaturedTripReport: func.isRequired,
   fetchUserTripReports: func.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 Layout.defaultProps = {

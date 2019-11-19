@@ -15,8 +15,8 @@ import Tooltip from '@material-ui/core/Tooltip'
 import {
   openCountryModal,
   closeCountryModal,
-  openEditDashboardModal,
-  closeEditDashboardModal,
+  openEditProfileModal,
+  closeEditProfileModal,
   openPostModal,
   closePostModal,
   openUpdatePostModal,
@@ -34,15 +34,15 @@ import {
 } from '../actions/tripReportActions'
 import { removeError } from '../actions/errorActions'
 import { toggleFavorite } from '../actions/favoriteActions'
-import OpenStreetMap from '../components/OpenStreetMap'
-import EditDashboardModal from '../components/EditDashboardModal'
-import TripReportThumbnail from '../components/TripReportThumbnail'
-import TripReportModal from '../components/TripReportModal'
-import ConfirmDeleteModal from '../components/ConfirmDeleteModal'
-import CountryModal from '../components/CountryModal'
-import CopyLinkModal from '../components/CopyLinkModal'
-import PostModal from '../components/PostModal'
-
+import OpenStreetMap from '../modules/views/OpenStreetMap'
+import EditDashboardModal from '../modules/views/EditProfileModal'
+import TripReportThumbnail from '../modules/views/TripReportThumbnail'
+import TripReportModal from '../modules/views/TripReportModal'
+import ConfirmDeleteModal from '../modules/views/ConfirmDeleteModal'
+import CountryModal from '../modules/views/CountryModal'
+import CopyLinkModal from '../modules/views/CopyLinkModal'
+import PostModal from '../modules/views/PostModal'
+import Paperbase from '../modules/components/admin/Paperbase'
 
 export function Dashboard(props) {
   const {
@@ -161,6 +161,7 @@ export function Dashboard(props) {
 
   return (
     <div id="scroll" className="content">
+      <Paperbase/>
       <CopyLinkModal {...props} />
       {fetched && <CountryModal {...props} />}
       <EditDashboardModal handleSubmit={handleSubmit} {...props} />
@@ -249,8 +250,8 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => bindActionCreators({
     fetchCountry,
     putUserData,
-    openEditDashboardModal,
-    closeEditDashboardModal,
+    openEditProfileModal,
+    closeEditProfileModal,
     openCountryModal,
     closeCountryModal,
     removeError,
@@ -298,8 +299,8 @@ Dashboard.propTypes = {
   updating: bool.isRequired,
   fetchCountry: func.isRequired,
   putUserData: func.isRequired,
-  openEditDashboardModal: func.isRequired,
-  closeEditDashboardModal: func.isRequired,
+  openEditProfileModal: func.isRequired,
+  closeEditProfileModal: func.isRequired,
   openCountryModal: func.isRequired,
   closeCountryModal: func.isRequired,
   removeError: func.isRequired,

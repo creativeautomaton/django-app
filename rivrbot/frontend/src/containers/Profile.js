@@ -12,6 +12,8 @@ import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
 import Add from '@material-ui/icons/Add'
 import Tooltip from '@material-ui/core/Tooltip'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 import {
   openCountryModal,
   closeCountryModal,
@@ -43,9 +45,54 @@ import CountryModal from '../modules/views/CountryModal'
 import CopyLinkModal from '../modules/views/CopyLinkModal'
 import PostModal from '../modules/views/PostModal'
 
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
+import RefreshIcon from '@material-ui/icons/Refresh';
+
+// import ResponsiveDrawer from '../modules/components/ResponsiveDrawer'
+import Header from '../modules/components/admin/Header'
+import Navigator from '../modules/components/admin/Navigator'
+import Paperbase from '../modules/components/admin/Paperbase'
+import AdminDrawer from '../modules/views/AdminDrawer'
+
+
+const styles = theme => ({
+  paper: {
+    maxWidth: 936,
+    margin: 'auto',
+    overflow: 'hidden',
+  },
+  searchBar: {
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+  },
+  searchInput: {
+    fontSize: theme.typography.fontSize,
+  },
+  block: {
+    display: 'block',
+  },
+  addUser: {
+    marginRight: theme.spacing(1),
+  },
+  contentWrapper: {
+    margin: '40px 16px',
+  },
+  DrawerContent:{
+    flexGrow: 1, padding: 10, marginRight: -drawerWidth,
+  }
+});
+
+const drawerWidth = 220;
 
 export function Profile(props) {
+
   const {
+    classes,
     next,
     fetchingUserNext,
     user,
@@ -159,66 +206,91 @@ export function Profile(props) {
 )
  }
 
+// <Paperbase/>
+
   return (
-    <div id="scroll" className="content" color="primary.dark" >
-      <CopyLinkModal {...props} />
-      {fetched && <CountryModal {...props} />}
-      <EditProfileModal handleSubmit={handleSubmit} {...props} />
-      <PostModal
-        {...props}
-        handlePostSubmit={handlePostSubmit}
-        handleUpdateSubmit={handleUpdateSubmit}
-      />
-      <ConfirmDeleteModal {...props} />
-      {modalPost.author && <TripReportModal handleClick={handleClick} {...props} />}
 
-      {/* This section is the user avatar, username, biography, etc. */}
-      <div className="wrap" style={{ marginBottom: 60 }}>
-        <div className="left" style={{ width: '37%' }}>
-          {user.home && <Avatar style={{ width: 150, height: 150, margin: '0 auto' }} src={user.home.flag} />}
-        </div>
-        <div className="right" style={{ textAlign: 'left', width: '63%', padding: 10 }}>
-          <div style={{ height: 40 }}>
-            <Typography variant="h4" gutterBottom>
-              {user.username}
-            </Typography>
-          </div>
-          <br />
-          {
-            isEdit && (
-              <div style={{ height: 40 }}>
-                <Button color="secondary"  size="small" variant="outlined" onClick={() => props.openEditProfileModal(user)}>
-                Edit Profile
-                </Button>
+    <React.Fragment>
+     <CssBaseline />
+     <Container maxWidth="sm"  className="content" color="primary.dark" >
+
+      <AdminDrawer />
+
+      <main className="DrawerContent" >
+
+              <CopyLinkModal {...props} />
+              {fetched && <CountryModal {...props} />}
+              <EditProfileModal handleSubmit={handleSubmit} {...props} />
+              <PostModal
+                {...props}
+                handlePostSubmit={handlePostSubmit}
+                handleUpdateSubmit={handleUpdateSubmit}
+              />
+              <ConfirmDeleteModal {...props} />
+              {modalPost.author && <TripReportModal handleClick={handleClick} {...props} />}
+
+              {/* This section is the user avatar, username, biography, etc. */}
+              <div className="wrap" style={{ marginBottom: 60 }}>
+                <div className="left" style={{ width: '37%' }}>
+
+                  {user.home && <Avatar style={{ width: 150, height: 150, margin: '0 auto' }} src={user.home.flag} />}
+                </div>
+                <div className="right" style={{ textAlign: 'left', width: '63%', padding: 10 }}>
+                  <div style={{ height: 40 }}>
+                    <Typography variant="h4" gutterBottom>
+                      {user.username}
+                    </Typography>
+                  </div>
+
+                  <br />
+                  {
+                    isEdit && (
+                      <div style={{ height: 40 }}>
+                        <Button color="secondary"  size="small" variant="outlined" onClick={() => props.openEditProfileModal(user)}>
+                        Edit Profile
+                        </Button>
+                      </div>
+                    )
+                  }
+                  <div style={{ height: 40 }}>
+                    <Button color="primary"  size="large" variant="contained" onClick={() => props.openEditProfileModal(user)}>
+                     Upgrade Rivrbot Plan
+                    </Button>
+                  </div>
+                  <br />
+                  <div style={{ height: 40 }}>
+                    {user.biography}
+                  </div>
+                </div>
               </div>
-            )
-          }
-          <br />
-          <div style={{ height: 40 }}>
-            {user.biography}
-          </div>
-        </div>
-      </div>
-      <hr style={{ width: '85%', size: 1 }} />
+              <hr style={{ width: '85%', size: 1 }} />
 
-      {/* This section is the user map */}
-      {fetched && <OpenStreetMap {...props} />}
-      <hr style={{ width: '85%', size: 1 }} />
+              {/* This section is the user map */}
+              {fetched && <OpenStreetMap {...props} />}
+              <hr style={{ width: '85%', size: 1 }} />
 
-      {/* This section is the user posts */}
-      <div>
-        <Tooltip title="New Trip Report">
-          <IconButton variant="contained" aria-label="New Trip Report" onClick={props.openPostModal}>
-            <Add />
-          </IconButton>
-        </Tooltip>
-        {fetchedTripReports && <Grid container spacing={10} justify="center">{listTripReports}</Grid>}
-        <div style={{ height: 15 }} />
-        {fetchingUserNext && <DotLoader size={50} color="#2196f3" className="content" />}
-      </div>
-    </div>
+              {/* This section is the user posts */}
+              <div>
+                <Tooltip title="New Trip Report">
+                  <IconButton variant="contained" aria-label="New Trip Report" onClick={props.openPostModal}>
+                    <Add />
+                  </IconButton>
+                </Tooltip>
+                {fetchedTripReports && <Grid container spacing={10} justify="center">{listTripReports}</Grid>}
+                <div style={{ height: 15 }} />
+                  {fetchingUserNext && <DotLoader size={50} color="#2196f3" className="content" />}
+              </div>
+
+        </main>
+    </Container>
+  </React.Fragment>
+
   )
 }
+
+
+
+
 
 const mapState = (state) => ({
     pk: state.user.user.pk,
@@ -319,6 +391,9 @@ Profile.propTypes = {
   closeCopyLinkModal: func.isRequired,
   location: shape({}).isRequired,
 }
+Profile.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 Profile.defaultProps = {
   modalLink: '',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { bool } from 'prop-types'
+import { bool, PropTypes } from 'prop-types'
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
@@ -8,13 +8,51 @@ import SearchIcon from '@material-ui/icons/Search'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import ListIcon from '@material-ui/icons/FormatListBulleted'
 import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton';
-import SvgIcon from '@material-ui/core/SvgIcon';
+import SvgIcon from '@material-ui/core/SvgIcon'
 
-const NavBar = ({ authenticated }) => (
+import clsx from 'clsx';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Hidden from '@material-ui/core/Hidden';
+
+// const NavBar = ({ authenticated, props }) => (
+
+export default function NavBar({ authenticated, props }) {
+
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setMobileOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+ const [mobileOpen, setMobileOpen] = React.useState(false);
+
+ const handleDrawerToggle = (e) => {
+   console.log('clicked me okay', e);
+   setMobileOpen(!mobileOpen);
+ };
+
+return (
+
   <div style={{ backgroundColor: '#ffffff' }}>
-    <AppBar color="inherit" position="static" >
+    <CssBaseline />
+    <AppBar
+      position="static"
+
+    >
       <Toolbar style={{ padding: 0 }} variant="regular">
+
         <Button
           style={{
             flex: 1, justifyContent: 'left', minWidth: 90, backgroundColor: 'transparent'
@@ -31,11 +69,35 @@ const NavBar = ({ authenticated }) => (
           </IconButton>
             RivrBot
         </Button>
+
         {
             authenticated
-            ?   <Tooltip title="My Profile">
-                <Button component={Link} to="/profile" color="inherit"><AccountCircleIcon /></Button>
-              </Tooltip>
+            ?  <Hidden smUp implementation="css">
+                  <Button
+                      color="inherit"
+                      aria-label="open drawer"
+                      onClick={handleDrawerToggle}
+                      edge="end"
+                    >
+                        <MenuIcon />
+                  </Button>
+                </Hidden>
+            :   <Button
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerToggle}
+                  edge="end"
+                >
+                    <MenuIcon />
+              </Button>
+        }
+        {
+            authenticated
+            ? <Hidden xsDown implementation="css">
+                <Tooltip title="My Profile">
+                    <Button component={Link} to="/profile" color="inherit"><AccountCircleIcon /></Button>
+                  </Tooltip>
+              </Hidden>
             :  <span></span>
         }
         {
@@ -59,8 +121,16 @@ const NavBar = ({ authenticated }) => (
         }
       </Toolbar>
     </AppBar>
+
   </div>
-  )
+)
+}
+
+NavBar.propTypes = {
+  authenticated: bool.isRequired
+};
+
+// export default (NavBar);
 
   // <Tooltip title="Trip Report Feed">
   //   <Button component={Link} to="/feed" color="inherit"><ListIcon /></Button>
@@ -68,9 +138,3 @@ const NavBar = ({ authenticated }) => (
   // <Tooltip title="Search for Countries">
   //   <Button component={Link} to="/search" color="inherit"><SearchIcon /></Button>
   // </Tooltip>
-
-export default NavBar
-
-NavBar.propTypes = {
-  authenticated: bool.isRequired,
-}
