@@ -1,17 +1,13 @@
 import React from 'react';
-import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles'
-import { bool, PropTypes } from 'prop-types'
+import {  PropTypes } from 'prop-types'
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import SearchIcon from '@material-ui/icons/Search'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import ListIcon from '@material-ui/icons/FormatListBulleted'
 import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton'
-import SvgIcon from '@material-ui/core/SvgIcon'
+import IconButton from '@material-ui/core/IconButton' 
 
 const styles = theme => ({
   title: {

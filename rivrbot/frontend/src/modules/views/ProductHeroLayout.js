@@ -4,9 +4,8 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import { ExpandMore, ArrowDownward } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton'; 
+import {  ArrowDownward } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 // import { HashLink as Link } from 'react-router-hash-link';
 

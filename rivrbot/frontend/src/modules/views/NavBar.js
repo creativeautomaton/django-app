@@ -1,22 +1,12 @@
 import React from 'react'
-import { bool, PropTypes } from 'prop-types'
+import { bool  } from 'prop-types'
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import SearchIcon from '@material-ui/icons/Search'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import ListIcon from '@material-ui/icons/FormatListBulleted'
-import Tooltip from '@material-ui/core/Tooltip'
-import SvgIcon from '@material-ui/core/SvgIcon'
-
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import Tooltip from '@material-ui/core/Tooltip' 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
@@ -24,17 +14,6 @@ import Hidden from '@material-ui/core/Hidden';
 // const NavBar = ({ authenticated, props }) => (
 
 export default function NavBar({ authenticated, props }) {
-
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setMobileOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
  const [mobileOpen, setMobileOpen] = React.useState(false);
 

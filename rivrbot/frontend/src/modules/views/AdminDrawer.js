@@ -1,40 +1,18 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer'; 
 import { Link } from 'react-router-dom'
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Button from '@material-ui/core/Button'
-import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
-import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
-import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-import PublicIcon from '@material-ui/icons/Public';
-import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
-import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
-import TimerIcon from '@material-ui/icons/Timer';
-import SettingsIcon from '@material-ui/icons/Settings';
-import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import AppsIcon from '@material-ui/icons/Apps';
 import Hidden from '@material-ui/core/Hidden';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 
 const drawerWidth = 220;
@@ -146,36 +124,14 @@ export default function AdminDrawer(props) {
   const classes = useStyles();
   // const { classes  } = props;
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = (e) => {
+    console.log('clicked me okay', e);
     setMobileOpen(!mobileOpen);
   };
   const { container } = props;
-
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
-
-  const toggleDrawer = (side, open) => event => {
-    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [side]: open });
-  };
 
   const drawer = (
     <List disablePadding alignItems="center">
@@ -242,7 +198,7 @@ export default function AdminDrawer(props) {
 
   return (
     <div>
-      <Hidden smUp={mobileOpen} implementation="css" >
+      <Hidden smUp={handleDrawerToggle} implementation="js" >
             <Drawer
               container={container}
               variant="temporary"
@@ -259,7 +215,7 @@ export default function AdminDrawer(props) {
               {drawer}
             </Drawer>
       </Hidden>
-      <Hidden xsDown={mobileOpen} implementation="css">
+      <Hidden xsDown={setMobileOpen} implementation="js">
             <Drawer
               classes={{
                 paper: classes.drawerPaper,

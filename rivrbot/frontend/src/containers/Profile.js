@@ -44,22 +44,8 @@ import ConfirmDeleteModal from '../modules/views/ConfirmDeleteModal'
 import CountryModal from '../modules/views/CountryModal'
 import CopyLinkModal from '../modules/views/CopyLinkModal'
 import PostModal from '../modules/views/PostModal'
-
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
-import RefreshIcon from '@material-ui/icons/Refresh';
-
-// import ResponsiveDrawer from '../modules/components/ResponsiveDrawer'
-import Header from '../modules/components/admin/Header'
-import Navigator from '../modules/components/admin/Navigator'
-import Paperbase from '../modules/components/admin/Paperbase'
-import AdminDrawer from '../modules/views/AdminDrawer'
-
+import AdminDrawer from '../modules/views/AdminDrawer' 
 
 const styles = theme => ({
   paper: {

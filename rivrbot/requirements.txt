@@ -19,3 +19,5 @@ python3-openid==3.1.0
 pytz==2018.6
 requests-oauthlib==1.0.0
 whitenoise==3.3.1
+dj-stripe==2.1.1
+stripe==2.40.0

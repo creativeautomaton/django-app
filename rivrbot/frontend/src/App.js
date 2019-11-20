@@ -1,8 +1,7 @@
 import './App.css'
 import React from 'react'
-import { bool } from 'prop-types'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import { green, grey, red } from '@material-ui/core/colors';
+import { green, red } from '@material-ui/core/colors';
 import Layout from './containers/Layout'
 
 export default function App() {
@@ -100,11 +99,11 @@ export default function App() {
     },
   })
 
-  const theme = ({ authenticated }) => (
-      authenticated
-      ? frontendtheme
-      : backendtheme
-  )
+  // const theme = ({ authenticated }) => (
+  //     authenticated
+  //     ? frontendtheme
+  //     : backendtheme
+  // )
 
   return (
     <MuiThemeProvider theme={frontendtheme}>

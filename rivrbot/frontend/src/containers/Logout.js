@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { authLogout } from '../actions/authActions'
 import { Redirect } from 'react-router-dom'
-import { bool, func, shape } from 'prop-types'
+import { func } from 'prop-types'
 
 export function Logout(props) {
   useEffect(() => {

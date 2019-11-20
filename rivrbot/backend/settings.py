@@ -1,6 +1,18 @@
 import os
 import django_heroku
 import dj_database_url
+import stripe
+
+
+# Stripe Key Settings
+STRIPE_SECRET_KEY = get_env_variable('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = get_env_variable('STRIPE_PUBLISHABLE_KEY')
+
+
+stripe.api_key = STRIPE_SECRET_KEY
+
+# Current Subscription Price
+SUBSCRIPTION_PRICE = 1500
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "djstripe",
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -55,7 +68,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'djstripe.middleware.SubscriptionPaymentMiddleware',
 ]
+
+# djstripe pages are automatically exempt!
+# DJSTRIPE_SUBSCRIPTION_REQUIRED_EXCEPTION_URLS = (
+#     'home',
+#     'profile'
+#     'about',
+#     "[spam]",  # Anything in the dj-spam namespace
+# )
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -157,6 +179,15 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 # Heroku settings get overridden if local_settings.py exists.
 django_heroku.settings(locals())
 DATABASES['default'] = dj_database_url.config()
+
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "<your publishable key>")
+STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "<your secret key>")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w")
+STRIPE_LIVE_MODE = False  # Change to True in production
+DJSTRIPE_WEBHOOK_SECRET = "whsec_eyZwyp4hfbGbTMzux2726P7m2IjYiTDA"
+# Get it from the section in the Stripe dashboard where you added the webhook endpoint looks like whsec_xxx
+
 
 
 # Travis ci database settings.

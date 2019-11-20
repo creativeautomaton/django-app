@@ -4,9 +4,6 @@ import { connect } from 'react-redux'
 import {
  arrayOf, func, bool, string, number, shape,
 } from 'prop-types'
-
-import { DotLoader } from 'react-spinners'
-import Typography from '@material-ui/core/Typography'
 import {
  openCopyLinkModal,
  closeCopyLinkModal,
@@ -22,13 +19,11 @@ import CountryModal from '../modules/views/CountryModal'
 import NotAuthModal from '../modules/views/NotAuthModal'
 import TripReportTruncated from '../modules/views/TripReportTruncated'
 import ProductCategories from '../modules/views/ProductCategories';
-import ProductSmokingHero from '../modules/views/ProductSmokingHero';
 import AppFooter from '../modules/views/AppFooter';
 import ProductHero from '../modules/views/ProductHero';
 import ProductValues from '../modules/views/ProductValues';
 import ProductHowItWorks from '../modules/views/ProductHowItWorks';
 import ProductCTA from '../modules/views/ProductCTA';
-import AppAppBar from '../modules/views/AppAppBar';
 
 
 export function Home(props) {

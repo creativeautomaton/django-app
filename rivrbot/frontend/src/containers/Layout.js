@@ -38,13 +38,13 @@ export function Layout(props) {
     fetching,
   } = props;
 
-  const { classes } = props;
+  // const { classes } = props;
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  // const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  // const handleDrawerToggle = () => {
+  //   setMobileOpen(!mobileOpen);
+  // };
 
   useEffect(() => {
     async function fetchData() {
@@ -82,7 +82,7 @@ export function Layout(props) {
 
                 <NavBar {...props} > </NavBar>
 
-                 
+
                 {/*
                 Errors are added if there are server errors, authentication errors,
                 errors while posting content, etc. Succeses are added to give users

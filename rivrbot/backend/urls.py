@@ -9,4 +9,5 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     path('', include('django.contrib.auth.urls')),
     re_path('.*', TemplateView.as_view(template_name='index.html')),
+    path("stripe/test/", include("djstripe.urls", namespace="djstripe")),
 ]

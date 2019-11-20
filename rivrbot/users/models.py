@@ -1,7 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from countries.models import Country
+from django.db import transaction
+from djstripe import webhooks
 
+# def do_something():
+#     pass  # send a mail, invalidate a cache, fire off a Celery task, etc.
+#
+# @webhooks.handler("plan", "product")
+# def my_handler(event, **kwargs):
+#     transaction.on_commit(do_something)
 
 class User(AbstractUser):
     '''
