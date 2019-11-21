@@ -21,3 +21,4 @@ requests-oauthlib==1.0.0
 whitenoise==3.3.1
 dj-stripe==2.1.1
 stripe==2.40.0
+zappa==0.48.2

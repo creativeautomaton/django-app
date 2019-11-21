@@ -1,12 +1,12 @@
 import os
-import django_heroku
+# import django_heroku
 import dj_database_url
 import stripe
 
 
 # Stripe Key Settings
-STRIPE_SECRET_KEY = get_env_variable('STRIPE_SECRET_KEY')
-STRIPE_PUBLISHABLE_KEY = get_env_variable('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y'
 
 
 stripe.api_key = STRIPE_SECRET_KEY
@@ -26,8 +26,7 @@ SECRET_KEY = 'ui7pf@bh&+40ilc_h$j_f3(!%c&1hwu%sng36yus&&16edgp+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
-                 'w4nderlist.herokuapp.com', 'www.wanderlist.dev']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://ooa6c9yadj.execute-api.us-east-2.amazonaws.com/dev','www.rivrbot.dev']
 
 
 # Application definition
@@ -177,8 +176,26 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 
 # Heroku settings get overridden if local_settings.py exists.
-django_heroku.settings(locals())
-DATABASES['default'] = dj_database_url.config()
+# django_heroku.settings(locals())
+DEBUG = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
+}
+
+SECRET_KEY = 'your secret django key'
+EMAIL_USER = 'your email username'
+EMAIL_PASS = 'your gmail app password'
+
+ROOT_URLCONF = 'backend.urls'
+# DATABASES['default'] = dj_database_url.config()
 
 STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "<your publishable key>")
 STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "<your secret key>")

@@ -14,6 +14,7 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('reports/<int:pk>/favorite/', FavoriteAPI.as_view()),
+    path("rest-auth/stripe/test/", include("djstripe.urls", namespace="djstripe")),
 ]
 
 urlpatterns += router.urls
