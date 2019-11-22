@@ -45,7 +45,7 @@ import CountryModal from '../modules/views/CountryModal'
 import CopyLinkModal from '../modules/views/CopyLinkModal'
 import PostModal from '../modules/views/PostModal'
 import PropTypes from 'prop-types';
-import AdminDrawer from '../modules/views/AdminDrawer' 
+import AdminDrawer from '../modules/views/AdminDrawer'
 
 const styles = theme => ({
   paper: {
@@ -192,8 +192,6 @@ export function Profile(props) {
 )
  }
 
-// <Paperbase/>
-
   return (
 
     <React.Fragment>
@@ -215,12 +213,15 @@ export function Profile(props) {
               <ConfirmDeleteModal {...props} />
               {modalPost.author && <TripReportModal handleClick={handleClick} {...props} />}
 
-              {/* This section is the user avatar, username, biography, etc. */}
-              <div className="wrap" style={{ marginBottom: 60 }}>
+              {/* This section is the user avatar, username, biography, etc.
                 <div className="left" style={{ width: '37%' }}>
 
                   {user.home && <Avatar style={{ width: 150, height: 150, margin: '0 auto' }} src={user.home.flag} />}
                 </div>
+
+                */}
+              <div className="wrap" style={{ marginBottom: 60 }}>
+
                 <div className="right" style={{ textAlign: 'left', width: '63%', padding: 10 }}>
                   <div style={{ height: 40 }}>
                     <Typography variant="h4" gutterBottom>
@@ -251,21 +252,28 @@ export function Profile(props) {
               </div>
               <hr style={{ width: '85%', size: 1 }} />
 
-              {/* This section is the user map */}
-              {fetched && <OpenStreetMap {...props} />}
-              <hr style={{ width: '85%', size: 1 }} />
+              {/* This section is the user map
 
-              {/* This section is the user posts */}
-              <div>
-                <Tooltip title="New Trip Report">
-                  <IconButton variant="contained" aria-label="New Trip Report" onClick={props.openPostModal}>
-                    <Add />
-                  </IconButton>
-                </Tooltip>
-                {fetchedTripReports && <Grid container spacing={10} justify="center">{listTripReports}</Grid>}
-                <div style={{ height: 15 }} />
-                  {fetchingUserNext && <DotLoader size={50} color="#2196f3" className="content" />}
-              </div>
+                {fetched && <OpenStreetMap {...props} />}
+                <hr style={{ width: '85%', size: 1 }} />
+
+
+                <div>
+                  <Tooltip title="New Trip Report">
+                    <IconButton variant="contained" aria-label="New Trip Report" onClick={props.openPostModal}>
+                      <Add />
+                    </IconButton>
+                  </Tooltip>
+                  {fetchedTripReports && <Grid container spacing={10} justify="center">{listTripReports}</Grid>}
+                  <div style={{ height: 15 }} />
+                    {fetchingUserNext && <DotLoader size={50} color="#2196f3" className="content" />}
+                </div>
+
+
+
+                */}
+                {/* This section is the user posts */}
+
 
         </main>
     </Container>

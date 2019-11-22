@@ -12,9 +12,9 @@ import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
 import Add from '@material-ui/icons/Add'
 import Tooltip from '@material-ui/core/Tooltip'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 import {
-  openCountryModal,
-  closeCountryModal,
   openEditProfileModal,
   closeEditProfileModal,
   openPostModal,
@@ -22,27 +22,35 @@ import {
   openUpdatePostModal,
   openConfirmDeleteModal,
   closeConfirmDeleteModal,
-  openTripReportModal,
-  closeTripReportModal,
   openCopyLinkModal,
   closeCopyLinkModal,
 } from '../actions/modalActions'
 import { putUserData } from '../actions/userActions'
-import { fetchCountry } from '../actions/countryActions'
-import {
-  fetchNextUserTripReports, postTripReport, deleteTripReport, updateTripReport,
-} from '../actions/tripReportActions'
 import { removeError } from '../actions/errorActions'
 import { toggleFavorite } from '../actions/favoriteActions'
 import OpenStreetMap from '../modules/views/OpenStreetMap'
 import EditDashboardModal from '../modules/views/EditProfileModal'
-import TripReportThumbnail from '../modules/views/TripReportThumbnail'
-import TripReportModal from '../modules/views/TripReportModal'
 import ConfirmDeleteModal from '../modules/views/ConfirmDeleteModal'
-import CountryModal from '../modules/views/CountryModal'
 import CopyLinkModal from '../modules/views/CopyLinkModal'
 import PostModal from '../modules/views/PostModal'
-import Paperbase from '../modules/components/admin/Paperbase'
+import AdminDrawer from '../modules/views/AdminDrawer'
+
+import Budget from '../modules/views/Budget'
+import TotalUsers from '../modules/views/TotalUsers'
+import TasksProgress from '../modules/views/TasksProgress'
+import TotalProfit from '../modules/views/TotalProfit'
+// import LatestSales from '../modules/views/LatestSales'
+// import UsersByDevice from '../modules/views/UsersByDevice'
+// import LatestProducts from '../modules/views/LatestProducts'
+// import LatestOrders from '../modules/views/LatestOrders'
+
+const drawerWidth = 220;
+
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     padding: theme.spacing(4)
+//   }
+// }));
 
 export function Dashboard(props) {
   const {
@@ -64,72 +72,27 @@ export function Dashboard(props) {
     return false
   }
 
-  // Infinite scrolling
-  const handleScroll = useCallback(() => {
-    const el = document.getElementById('scroll')
-    if (isBottom(el) && next && !fetchingUserNext) {
-      props.fetchNextUserTripReports(next)
-    }
-    // eslint-disable-next-line
-  }, [props.fetchNextUserTripReports, fetchingUserNext, next])
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [handleScroll])
 
   /*
-  handlPostSubmit will create a new trip report and handleUpdateSubmit will
-  update an existing trip report. Both functions are passed into the Post Modal.
-  If the Post Modal is opened with openPostModal, updatePostModal
-  remains false and the blank form is displayed, and the submit button will
-  create a new post. If the Post Modal is openeed with openUpdatePostModal,
-  updatePostModal will flip to true, and the pre-filled in form will
-  display and the submit button will update the existing trip report.
+  This handle submit works with the edit Dashboard modal.
   */
   const handlePostSubmit = (e) => {
     e.preventDefault()
     // e.target.countries.value must be split at the comma and then strings
     // must be converted into numbers.
-    let countries
-    if (e.target.countries.value !== '') {
-      countries = e.target.countries.value.split(',').map(Number)
-    }
-    props.postTripReport(
-      user.pk,
-      e.target.title.value,
-      e.target.content.value,
-      countries,
-    )
+
     props.closePostModal()
   }
-
   const handleUpdateSubmit = (e) => {
     e.preventDefault()
-    let countries
-    if (e.target.countries.value !== '') {
-      countries = e.target.countries.value.split(',').map(Number)
-    }
-    props.updateTripReport(
-      modalPost.id,
-      user.pk,
-      e.target.title.value,
-      e.target.content.value,
-      countries,
-    )
+
     props.closePostModal()
   }
-
-  /*
-  This handle submit works with the edit Dashboard modal.
-  */
   const handleSubmit = (e) => {
     e.preventDefault()
-    const userCountryList = userCountries.map((country) => country.id)
     props.putUserData(
       e.target.username.value,
       e.target.email.value,
-      userCountryList,
       Number(e.target.country.value),
       e.target.biography.value,
       'Your dashboard has been updated.',
@@ -142,28 +105,113 @@ export function Dashboard(props) {
     props.toggleFavorite(e.currentTarget.id)
   }
 
-  const listTripReports = tripReports && tripReports.map((tripReport) => (
-    <Grid item key={tripReport.id}>
-      <TripReportThumbnail tripReport={tripReport} {...props} />
-    </Grid>
-    ))
-
   const isEdit = location.pathname === '/dashboard'
 
   if (posting || updating) {
- return (
-   <div>
-     <DotLoader size={50} color="#2196f3" className="content" />
-     <br />
-   </div>
-)
+     return (
+       <div>
+         <DotLoader size={50} color="#2196f3" className="content" />
+         <br />
+       </div>
+    )
  }
 
+
   return (
-    <div id="scroll" className="content">
-      <Paperbase/>
+
+  <React.Fragment>
+   <CssBaseline />
+   <Container maxWidth="sm"  className="content" color="primary.dark" >
+
+   <AdminDrawer />
+
+
+    <main className="DrawerContent" >
+
+      <div >
+              <Grid
+                container
+                spacing={4}
+              >
+                <Grid
+                  item
+                  lg={3}
+                  sm={6}
+                  xl={3}
+                  xs={12}
+                >
+                  <Budget />
+                </Grid>
+                <Grid
+                  item
+                  lg={3}
+                  sm={6}
+                  xl={3}
+                  xs={12}
+                >
+                  <TotalUsers />
+                </Grid>
+                <Grid
+                  item
+                  lg={3}
+                  sm={6}
+                  xl={3}
+                  xs={12}
+                >
+                  <TasksProgress />
+                </Grid>
+                <Grid
+                  item
+                  lg={3}
+                  sm={6}
+                  xl={3}
+                  xs={12}
+                >
+                  <TotalProfit />
+                </Grid>
+                <Grid
+                  item
+                  lg={8}
+                  md={12}
+                  xl={9}
+                  xs={12}
+                >
+
+                    {/* <LatestSales /><LatestSales /> */}
+                </Grid>
+                <Grid
+                  item
+                  lg={4}
+                  md={6}
+                  xl={3}
+                  xs={12}
+                >
+                {/* <UsersByDevice /> */}
+                </Grid>
+                <Grid
+                  item
+                  lg={4}
+                  md={6}
+                  xl={3}
+                  xs={12}
+                >
+
+                  {/* <LatestProducts /> */}
+                </Grid>
+                <Grid
+                  item
+                  lg={8}
+                  md={12}
+                  xl={9}
+                  xs={12}
+                >
+                {/* <LatestOrders /> */}
+
+                </Grid>
+              </Grid>
+            </div>
+
       <CopyLinkModal {...props} />
-      {fetched && <CountryModal {...props} />}
       <EditDashboardModal handleSubmit={handleSubmit} {...props} />
       <PostModal
         {...props}
@@ -171,7 +219,6 @@ export function Dashboard(props) {
         handleUpdateSubmit={handleUpdateSubmit}
       />
       <ConfirmDeleteModal {...props} />
-      {modalPost.author && <TripReportModal handleClick={handleClick} {...props} />}
 
       {/* This section is the user avatar, username, biography, etc. */}
       <div className="wrap" style={{ marginBottom: 60 }}>
@@ -202,22 +249,9 @@ export function Dashboard(props) {
       </div>
       <hr style={{ width: '85%', size: 1 }} />
 
-      {/* This section is the user map */}
-      {fetched && <OpenStreetMap {...props} />}
-      <hr style={{ width: '85%', size: 1 }} />
-
-      {/* This section is the user posts */}
-      <div>
-        <Tooltip title="New Trip Report">
-          <IconButton variant="contained" aria-label="New Trip Report" onClick={props.openPostModal}>
-            <Add />
-          </IconButton>
-        </Tooltip>
-        {fetchedTripReports && <Grid container spacing={10} justify="center">{listTripReports}</Grid>}
-        <div style={{ height: 15 }} />
-        {fetchingUserNext && <DotLoader size={50} color="#2196f3" className="content" />}
-      </div>
-    </div>
+              </main>
+          </Container>
+        </React.Fragment>
   )
 }
 
@@ -225,47 +259,27 @@ const mapState = (state) => ({
     pk: state.user.user.pk,
     authenticated: state.auth.authenticated,
     user: state.user.user,
-    next: state.tripReport.userTripReports.next,
     fetched: state.user.fetched,
-    fetchingUserNext: state.tripReport.fetchingUserNext,
-    searchedCountry: state.country.country,
     showEditDashboardModal: state.modal.showEditDashboardModal,
     modalDashboard: state.modal.modalDashboard,
-    userCountries: state.user.user.countries,
-    showCountryModal: state.modal.showCountryModal,
-    modalCountry: state.modal.modalCountry,
     showPostModal: state.modal.showPostModal,
-    fetchedTripReports: state.tripReport.fetchedTripReports,
-    tripReports: state.tripReport.userTripReports.results,
     updatePostModal: state.modal.updatePostModal,
     modalPost: state.modal.modalPost,
     showConfirmDeleteModal: state.modal.showConfirmDeleteModal,
-    showTripReportModal: state.modal.showTripReportModal,
     showCopyLinkModal: state.modal.showCopyLinkModal,
     modalLink: state.modal.modalLink,
-    posting: state.tripReport.posting,
-    updating: state.tripReport.updating,
-  })
+})
 
 const mapDispatch = (dispatch) => bindActionCreators({
-    fetchCountry,
     putUserData,
     openEditProfileModal,
     closeEditProfileModal,
-    openCountryModal,
-    closeCountryModal,
     removeError,
-    postTripReport,
-    deleteTripReport,
-    updateTripReport,
     openPostModal,
     closePostModal,
     openUpdatePostModal,
     openConfirmDeleteModal,
     closeConfirmDeleteModal,
-    openTripReportModal,
-    closeTripReportModal,
-    fetchNextUserTripReports,
     toggleFavorite,
     openCopyLinkModal,
     closeCopyLinkModal,
@@ -280,41 +294,25 @@ Dashboard.propTypes = {
   next: string,
   fetched: bool.isRequired,
   fetchingUserNext: bool.isRequired,
-  searchedCountry: arrayOf(shape({})).isRequired,
   showEditDashboardModal: bool.isRequired,
   modalDashboard: shape({}).isRequired,
-  userCountries: arrayOf(shape({})).isRequired,
-  showCountryModal: bool.isRequired,
-  modalCountry: shape({}).isRequired,
   showPostModal: bool.isRequired,
-  fetchedTripReports: bool.isRequired,
-  tripReports: arrayOf(shape({})).isRequired,
   updatePostModal: bool.isRequired,
   modalPost: shape({}).isRequired,
   showConfirmDeleteModal: bool.isRequired,
-  showTripReportModal: bool.isRequired,
   showCopyLinkModal: bool.isRequired,
   modalLink: string,
   posting: bool.isRequired,
   updating: bool.isRequired,
-  fetchCountry: func.isRequired,
   putUserData: func.isRequired,
   openEditProfileModal: func.isRequired,
   closeEditProfileModal: func.isRequired,
-  openCountryModal: func.isRequired,
-  closeCountryModal: func.isRequired,
   removeError: func.isRequired,
-  postTripReport: func.isRequired,
-  deleteTripReport: func.isRequired,
-  updateTripReport: func.isRequired,
   openPostModal: func.isRequired,
   closePostModal: func.isRequired,
   openUpdatePostModal: func.isRequired,
   openConfirmDeleteModal: func.isRequired,
   closeConfirmDeleteModal: func.isRequired,
-  openTripReportModal: func.isRequired,
-  closeTripReportModal: func.isRequired,
-  fetchNextUserTripReports: func.isRequired,
   toggleFavorite: func.isRequired,
   openCopyLinkModal: func.isRequired,
   closeCopyLinkModal: func.isRequired,

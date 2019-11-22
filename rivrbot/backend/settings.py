@@ -8,6 +8,10 @@ import stripe
 STRIPE_SECRET_KEY = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y'
 
+# current aws keys
+# export AWS_ACCESS_KEY_ID='AKIASWFFMV2VAEVGACF5'
+# export AWS_SECRET_ACCESS_KEY='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'
+
 
 stripe.api_key = STRIPE_SECRET_KEY
 
@@ -26,7 +30,7 @@ SECRET_KEY = 'ui7pf@bh&+40ilc_h$j_f3(!%c&1hwu%sng36yus&&16edgp+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://ooa6c9yadj.execute-api.us-east-2.amazonaws.com/dev','www.rivrbot.dev']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost','https://ooa6c9yadj.execute-api.us-east-2.amazonaws.com/dev','www.rivrbot.dev']
 
 
 # Application definition
