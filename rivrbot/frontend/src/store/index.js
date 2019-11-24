@@ -8,6 +8,7 @@ import country from './country'
 import error from './error'
 import modal from './modal'
 import tripReport from './tripReport'
+import stripe from './stripe/index.js'
 import user from './user'
 
 const reducer = combineReducers({

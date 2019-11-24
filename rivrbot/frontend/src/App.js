@@ -4,6 +4,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { green, red } from '@material-ui/core/colors';
 import Layout from './containers/Layout'
 
+
 export default function App() {
   const frontendtheme = createMuiTheme({
       palette: {
@@ -106,8 +107,9 @@ export default function App() {
   // )
 
   return (
-    <MuiThemeProvider theme={frontendtheme}>
-       <Layout />
-    </MuiThemeProvider>
+
+        <MuiThemeProvider theme={frontendtheme}>
+           <Layout />
+        </MuiThemeProvider>
   )
 }

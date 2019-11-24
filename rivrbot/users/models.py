@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from countries.models import Country
 from django.db import transaction
 from djstripe import webhooks
+from django.utils.functional import cached_property
+from djstripe.utils import subscriber_has_active_subscription
 
 # def do_something():
 #     pass  # send a mail, invalidate a cache, fire off a Celery task, etc.
@@ -27,3 +29,8 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    @cached_property
+    def has_active_subscription(self):
+        """Checks if a user has an active subscription."""
+        return subscriber_has_active_subscription(self)

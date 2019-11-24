@@ -3,6 +3,20 @@ import os
 import dj_database_url
 import stripe
 
+stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
+# stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+
+
+# stripe.Customer.create(
+#   description="Customer for jenny.rosen@example.com",
+# )
+# stripe.Charge.create(
+#   amount=2100,
+#   currency="usd",
+#   source="tok_amex",
+#   description="Charge for mister.test@example.com",
+# )
+
 
 # Stripe Key Settings
 STRIPE_SECRET_KEY = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
@@ -12,8 +26,6 @@ STRIPE_PUBLISHABLE_KEY = 'pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y'
 # export AWS_ACCESS_KEY_ID='AKIASWFFMV2VAEVGACF5'
 # export AWS_SECRET_ACCESS_KEY='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'
 
-
-stripe.api_key = STRIPE_SECRET_KEY
 
 # Current Subscription Price
 SUBSCRIPTION_PRICE = 1500

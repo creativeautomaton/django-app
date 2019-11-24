@@ -14,6 +14,10 @@ export const fetchSingleUserPending = () => ({ type: 'FETCH_SINGLE_USER_PENDING'
 export const fetchSingleUserFulfilled = (user) => ({ type: 'FETCH_SINGLE_USER_FULFILLED', user })
 export const fetchSingleUserRejected = () => ({ type: 'FETCH_SINGLE_USER_REJECTED' })
 
+
+// Fetch authenticated user action stripe account
+// export const fetchSingleUserStripe = () => ({ type: ' ' }) 
+
 // GET requests the Django REST API, which returns authenticated user object.
 export const fetchUser = () => {
   const token = localStorage.getItem('token')

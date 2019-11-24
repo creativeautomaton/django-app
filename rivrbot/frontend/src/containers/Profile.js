@@ -47,6 +47,10 @@ import PostModal from '../modules/views/PostModal'
 import PropTypes from 'prop-types';
 import AdminDrawer from '../modules/views/AdminDrawer'
 
+//  Stripe Components
+import {StripeProvider, Elements} from 'react-stripe-elements'; 
+import CheckoutForm from '../modules/form/CheckoutForm'
+
 const styles = theme => ({
   paper: {
     maxWidth: 936,
@@ -243,6 +247,14 @@ export function Profile(props) {
                     <Button color="primary"  size="large" variant="contained" onClick={() => props.openEditProfileModal(user)}>
                      Upgrade Rivrbot Plan
                     </Button>
+
+                    <StripeProvider apiKey="pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y">
+                      <Elements>
+                          <CheckoutForm />
+                      </Elements>
+                    </StripeProvider>
+
+
                   </div>
                   <br />
                   <div style={{ height: 40 }}>
