@@ -42,7 +42,8 @@ SECRET_KEY = 'ui7pf@bh&+40ilc_h$j_f3(!%c&1hwu%sng36yus&&16edgp+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost','https://ooa6c9yadj.execute-api.us-east-2.amazonaws.com/dev','www.rivrbot.dev']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost',
+'https://ooa6c9yadj.execute-api.us-east-2.amazonaws.com/dev','www.rivrbot.dev', '2cc2fbe5.ngrok.io']
 
 
 # Application definition
@@ -219,6 +220,7 @@ STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_y9woK
 STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w")
 STRIPE_LIVE_MODE = False  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_eyZwyp4hfbGbTMzux2726P7m2IjYiTDA"
+STRIPE_API_VERSION = '2019-09-09'
 # Get it from the section in the Stripe dashboard where you added the webhook endpoint looks like whsec_xxx
 
 

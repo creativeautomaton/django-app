@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from countries.models import Country
 from django.db import transaction
-from djstripe import webhooks
+
+from djstripe import webhooks 
 from django.utils.functional import cached_property
 from djstripe.utils import subscriber_has_active_subscription
 

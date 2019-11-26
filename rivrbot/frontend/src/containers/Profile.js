@@ -48,8 +48,8 @@ import PropTypes from 'prop-types';
 import AdminDrawer from '../modules/views/AdminDrawer'
 
 //  Stripe Components
-import {StripeProvider, Elements} from 'react-stripe-elements'; 
-import CheckoutForm from '../modules/form/CheckoutForm'
+// import {StripeProvider, Elements} from 'react-stripe-elements';
+// import CheckoutForm from '../modules/form/CheckoutForm'
 
 const styles = theme => ({
   paper: {
@@ -248,11 +248,6 @@ export function Profile(props) {
                      Upgrade Rivrbot Plan
                     </Button>
 
-                    <StripeProvider apiKey="pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y">
-                      <Elements>
-                          <CheckoutForm />
-                      </Elements>
-                    </StripeProvider>
 
 
                   </div>
@@ -265,6 +260,12 @@ export function Profile(props) {
               <hr style={{ width: '85%', size: 1 }} />
 
               {/* This section is the user map
+                // <StripeProvider apiKey="pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y">
+                //   <Elements>
+                //       <CheckoutForm />
+                //   </Elements>
+                // </StripeProvider>
+
 
                 {fetched && <OpenStreetMap {...props} />}
                 <hr style={{ width: '85%', size: 1 }} />

@@ -8,6 +8,26 @@ from countries.models import Country, Currency, Language, RegionalBloc
 from users.models import User
 from trips.models import TripReport
 
+from djstripe.models.core import Customer
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    '''
+    Stripe Customer serializer inherited from ModelSerializer.
+    '''
+    class Meta:
+        model = Customer
+        fields = (
+            "id",
+            "subscriber",
+            "email",
+            "currency",
+            "default_source",
+            "coupon",
+            "balance",
+            "business_vat_id"
+         )
+
 
 class CurrenciesSerializer(serializers.ModelSerializer):
     '''

@@ -7,8 +7,9 @@ from rest_framework import permissions
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
 from api.serializers import (
-    CountrySerializer, TripReportSerializer, UserSerializer
+    CountrySerializer, TripReportSerializer, UserSerializer, CustomerSerializer
 )
+from djstripe.models.core import Customer
 from countries.models import Country
 from trips.models import TripReport
 from users.models import User
@@ -37,6 +38,19 @@ class CountryListView(ListAPIView):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'demonym', 'alpha3code', 'languages__name')
 
+class CustomerListView(ListAPIView):
+    '''
+    When GET requests are made to this view, the user, who made the request,
+    has their ManyToMany relation toggled in the favoriter field of the Trip
+    Report model. The GET request returns the Trip Report object with the
+    updated favoriters array.
+    '''
+    queryset = Customer.objects.all().annotate(
+        count=Count('id')).order_by('-count')
+    serializer_class = CustomerSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('=id', )
+    ordering_fields = ('pk', )
 
 class TripReportViewSet(viewsets.ModelViewSet):
     '''

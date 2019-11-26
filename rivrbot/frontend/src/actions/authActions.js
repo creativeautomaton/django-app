@@ -67,6 +67,7 @@ export const authRegister = (username, email, password1, password2, home) => (di
       dispatch(authSuccess(token))
       dispatch(fetchUser())
       dispatch({ type: 'ADD_SUCCESS', success: 'You have successfully registered.' })
+      axios.post(`${process.env.REACT_APP_API_URL}/customer-created/webhook/`)
     })
     .catch((error) => {
       console.log(error.response.data);

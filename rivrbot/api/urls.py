@@ -1,7 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
-    CountryListView, TripReportViewSet, UserListView, FavoriteAPI
+    CountryListView, TripReportViewSet,
+    UserListView, FavoriteAPI,
+    CustomerListView
 )
 
 
@@ -14,7 +16,9 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('reports/<int:pk>/favorite/', FavoriteAPI.as_view()),
-    path("stripe/", include("djstripe.urls", namespace="djstripe")), 
+    # path(r"^stripe/", include("djstripe.urls", namespace="djstripe")),
+
+    path('customer/', CustomerListView.as_view()),
 ]
 
 urlpatterns += router.urls
