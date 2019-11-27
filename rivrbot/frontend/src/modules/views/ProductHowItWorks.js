@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container'; 
+import Container from '@material-ui/core/Container';
 import Typography from '../components/Typography';
 import SwapCallsIcon from '@material-ui/icons/SwapCalls';
 import SelectAllIcon from '@material-ui/icons/SelectAll';
@@ -63,7 +63,7 @@ function ProductHowItWorks(props) {
     <section className={classes.root}>
       <Container className={classes.container}>
         <Typography variant="h3" marked="center"  >
-          How RivrBot Works
+          How RevaBot Works
 
         </Typography>
         <Grid container spacing={8}>
@@ -71,7 +71,7 @@ function ProductHowItWorks(props) {
             <Grid item xs={12} md={8} >
               <div className={classes.item} style={{ padding: 40 }} align="center">
                 <Typography variant="h5" marked="center" >
-                  { 'With RivrBot AI Assistant, your requests are encrypted and split into pieces client-side'}
+                  { 'With RevaBot AI Assistant, your requests are encrypted and split into pieces client-side'}
                   { 'before being distributed across our network of high-performance Machine Learning nodes.'}
                  </Typography>
               </div>

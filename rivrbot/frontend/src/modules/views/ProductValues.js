@@ -79,7 +79,7 @@ function ProductValues(props) {
                 New Ways to use Data
               </Typography>
               <Typography variant="h5">
-                {'Ask a question and have RivrBot Answer you in 0.0125 seconds '}
+                {'Ask a question and have RevaBot Answer you in 0.0125 seconds '}
                 {'no two problems will be alike.'}
               </Typography>
             </div>

@@ -21,7 +21,7 @@ const NavBar = ({ authenticated }) => (
           to="/"
           color="inherit"
         >
-            RivrBot
+            RevaBot
         </Button>
         <Tooltip title="Trip Report Feed">
           <Button component={Link} to="/feed" color="inherit"><ListIcon /></Button>

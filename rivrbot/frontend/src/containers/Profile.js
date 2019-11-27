@@ -245,7 +245,7 @@ export function Profile(props) {
                   }
                   <div style={{ height: 40 }}>
                     <Button color="primary"  size="large" variant="contained" onClick={() => props.openEditProfileModal(user)}>
-                     Upgrade Rivrbot Plan
+                     Upgrade RevaBot Plan
                     </Button>
 
 

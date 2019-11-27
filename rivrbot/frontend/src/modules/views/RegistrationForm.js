@@ -43,6 +43,7 @@ export default function RegistrationForm(props) {
         <br />
       </div>
 )}
+      <h1> Start your Free 14 day RevaBot Trial Today!</h1>
       <Card style={{ maxWidth: 400, margin: '0 auto' }}>
         <CardHeader title="Register" />
         <CardContent>
@@ -52,17 +53,16 @@ export default function RegistrationForm(props) {
             <br />
             <TextField className="user-auth" type="text" name="email" label="Email" required />
             <br />
-            <TextField error className="user-auth" type="password" name="password1" label="Password" required
+            <TextField  className="user-auth" type="password" name="password1" label="Password" required
 
-            helperText="Incorrect entry."
+            helperText="Password must be atleat 8 characters with Capitals and numericals characters."
              />
             <br />
-            <TextField  error className="user-auth" type="password" name="password2" label="Confirm Password" required
-            helperText="Incorrect entry."
+            <TextField  className="user-auth" type="password" name="password2" label="Confirm Password" required 
             />
             <br />
             <FormControl>
-              <InputLabel htmlFor="country">Country</InputLabel>
+              <InputLabel style={{ textAlign: 'left', display: 'none' }} htmlFor="country">Country</InputLabel>
               <Select style={{ textAlign: 'left', display: 'none' }} className="user-auth" name="country" onChange={handleChange} value={country}>
                 {menuItems}
               </Select>

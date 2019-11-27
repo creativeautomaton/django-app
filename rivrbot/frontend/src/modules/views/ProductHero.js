@@ -37,7 +37,7 @@ function ProductHero(props) {
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
       <Typography color="inherit" align="left" variant="h2" marked="center">
-        Advanced Real Estate Leads
+        Advanced Real Estate Virtual Assisstant
       </Typography>
       <Typography color="inherit" align="left" variant="h5" className={classes.h5}>
         Better leads, Faster connections, Targeted Markets.
@@ -45,7 +45,7 @@ function ProductHero(props) {
       <Button
         color="secondary"
         variant="contained"
-        size="large" 
+        size="large"
         className={classes.button}
         component="a"
         href="/register/"
@@ -53,7 +53,7 @@ function ProductHero(props) {
         Register
       </Button>
       <Typography variant="body2" color="inherit" className={classes.more}>
-        Discover the RivrBot
+        Discover the RevaBot
       </Typography>
     </ProductHeroLayout>
   );

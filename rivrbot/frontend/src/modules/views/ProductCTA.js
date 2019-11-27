@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormControl } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -79,12 +80,17 @@ function ProductCTA(props) {
           <div className={classes.card}>
             <form onSubmit={handleSubmit} className={classes.cardContent}>
               <Typography variant="h2" component="h2" gutterBottom>
-                 Join the waitlist
+                 Join the REVABOT waitlist
               </Typography>
               <Typography variant="h5">
-                The first 10,000 clients on the waitlist will get to Trial RivrBot for their first 30 days after production launch.
+                The first 10,000 clients on the waitlist will get to Trial RevaBot for their first 30 days after production launch.
               </Typography>
-              <TextField noBorder className={classes.textField} placeholder="Your email" />
+
+               <TextField
+                 noBorder
+                 className={classes.textFiefld}
+                 placeholder="Your email" 
+               />
               <Button type="submit" color="secondary" variant="contained" className={classes.button}>
                 Join the List
               </Button>
@@ -105,7 +111,7 @@ function ProductCTA(props) {
       <Snackbar
         open={open}
         onClose={handleClose}
-        message="We will send you confirmation, asap."
+        message="All Signed up!. We wont spam you, promise."
       />
     </Container>
   );

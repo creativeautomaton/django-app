@@ -87,7 +87,7 @@ export default function AppFooter() {
 
                </IconButton>
                <Typography variant="h6" marked="left"  >
-                 RivrBot
+                 RevaBot
                </Typography>
               </Grid>
 
@@ -137,7 +137,7 @@ function Copyright() {
     <React.Fragment>
       {'© '}
       <Link color="inherit" href="/">
-        RivrBot
+        RevaBot
       </Link>{' '}
       {new Date().getFullYear()}
     </React.Fragment>

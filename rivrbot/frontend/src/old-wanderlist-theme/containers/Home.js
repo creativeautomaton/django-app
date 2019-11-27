@@ -44,7 +44,7 @@ export function Home(props) {
       {modalCountry && <CountryModal {...props} />}
       <div className="header-img">
         <Typography variant="h2" gutterBottom style={{ color: 'white', paddingTop: 200 }}>
-          Rivrbot
+          RevaBot
         </Typography>
       </div>
       <div style={{ marginTop: 60, textAlign: 'center' }}>

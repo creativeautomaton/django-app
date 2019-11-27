@@ -9,6 +9,7 @@ init:
 migrate:
 	docker-compose run wanderlist python manage.py makemigrations
 	docker-compose run wanderlist python manage.py migrate
+	docker-compose run wanderlist python manage.py djstripe_init_customers
 
 up:
 	docker-compose up
