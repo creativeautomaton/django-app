@@ -138,7 +138,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'countries', 'home', 'biography')
+        fields = ('pk', 'username', 'countries', 'home', 'biography', 'street','state', 'zipcode')
 
 
 class TripReportSerializer(serializers.ModelSerializer):
@@ -167,7 +167,7 @@ class UserDetailSerializer(UserDetailsSerializer):
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'email', 'countries', 'home', 'biography')
+        fields = ('pk', 'username', 'email', 'countries', 'home', 'biography', 'street', 'state', 'zipcode')
 
     '''
     Updates the users object in the database. The username, email, countries,
@@ -177,6 +177,9 @@ class UserDetailSerializer(UserDetailsSerializer):
     def update(self, instance, validated_data):
         instance.username = validated_data['username']
         instance.email = validated_data['email']
+        instance.street = validated_data['street']
+        instance.state = validated_data['state']
+        instance.zipcode = validated_data['zipcode']
         # Direct assignment of ManyToMany objects prohibited, use .set()
         instance.countries.set(validated_data['countries'])
         instance.home = validated_data['home']
@@ -193,8 +196,11 @@ class RegistrationSerializer(RegisterSerializer):
     email = serializers.EmailField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
-    home = CountryField(queryset=Country.objects.all(),
-                        required=True, write_only=True)
+    home = CountryField(queryset=Country.objects.all(), required=True, write_only=True)
+    street = serializers.CharField(required=True, write_only=True)
+    state = serializers.CharField(required=True, write_only=True)
+    zipcode = serializers.CharField(required=True, write_only=True)
+
 
     def get_cleaned_data(self):
         return {
@@ -203,6 +209,9 @@ class RegistrationSerializer(RegisterSerializer):
             'password2': self.validated_data.get('password2', ''),
             'email': self.validated_data.get('email', ''),
             'home': self.validated_data.get('home', ''),
+            'street': self.validated_data.get('street', ''),
+            'state': self.validated_data.get('state', ''),
+            'zipcode': self.validated_data.get('zipcode', ''),
         }
 
     '''

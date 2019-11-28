@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from countries.models import Country
 from django.db import transaction
 
-from djstripe import webhooks 
+from djstripe import webhooks
 from django.utils.functional import cached_property
 from djstripe.utils import subscriber_has_active_subscription
 
@@ -26,6 +26,11 @@ class User(AbstractUser):
         Country, on_delete=models.PROTECT, null=True,
         related_name='home_country'
     )
+
+    street = models.CharField(max_length=150, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
+    zipcode = models.CharField(max_length=10, null=True, blank=True)
+
     biography = models.CharField(max_length=150, null=True, blank=True)
 
     def __str__(self):

@@ -7,5 +7,5 @@ admin.site.register(User, UserAdmin)
 # Custom fields shown on the admin page.
 UserAdmin.fieldsets += (
     'Custom fields set',
-    {'fields': ('countries', 'home', 'trial')}
+    {'fields': ('countries', 'home', 'trial', 'street', 'state', 'zipcode')}
 ),

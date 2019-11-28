@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, FormView
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
@@ -12,6 +13,9 @@ from api.serializers import (
 from djstripe.models.core import Customer
 from countries.models import Country
 from trips.models import TripReport
+from users.models import User
+import djstripe
+import stripe
 from users.models import User
 
 
@@ -51,6 +55,37 @@ class CustomerListView(ListAPIView):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('=id', )
     ordering_fields = ('pk', )
+
+class PurchaseSubscriptionView(ListAPIView):
+
+      # Create the stripe Customer, by default subscriber Model is User,
+      # this can be overridden with settings.DJSTRIPE_SUBSCRIBER_MODEL
+      permission_classes = (permissions.IsAuthenticated,)
+
+      def get(self, request, slug=None, format=None, pk=None):
+          obj = get_object_or_404(TripReport, id=pk)
+          user = self.request.user
+          if user.is_authenticated:
+              customer, created = djstripe.models.Customer.get_or_create(subscriber=user)
+
+              # Add the source as the customer's default card
+              customer.add_card(stripe_source)
+
+              # Using the Stripe API, create a subscription for this customer,
+              # using the customer's default payment source
+              stripe_subscription = stripe.Subscription.create(
+                  customer=customer.id,
+                  items=[{"plan": plan.id}],
+                  billing="charge_automatically",
+                  # tax_percent=15,
+                  api_key=djstripe.settings.STRIPE_SECRET_KEY,
+              )
+
+              # Sync the Stripe API return data to the database,
+              # this way we don't need to wait for a webhook-triggered sync
+              subscription = djstripe.models.Subscription.sync_from_stripe_data(
+                  stripe_subscription
+              )
 
 class TripReportViewSet(viewsets.ModelViewSet):
     '''

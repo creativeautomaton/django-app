@@ -44,6 +44,19 @@ export default function(state = initialState, action) {
         fetchingSingleUser: true,
       }
     }
+    // Axios stripe subscription put
+    case 'PUT_USER_SUBSCRIPTION_DATA_FULFILLED': {
+      return {
+        ...state,
+        user: action.user,
+      }
+    }
+    case 'PUT_USER_SUBSCRIPTION_DATA_REJECTED': {
+      return {
+        ...state,
+        user: action.user,
+      }
+    }
     /*
     API search returns an array of 1 object, since the search parameter is an
     exact match.

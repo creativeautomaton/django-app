@@ -3,7 +3,8 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     CountryListView, TripReportViewSet,
     UserListView, FavoriteAPI,
-    CustomerListView
+    CustomerListView,
+    PurchaseSubscriptionView
 )
 
 
@@ -19,6 +20,7 @@ urlpatterns = [
     # path(r"^stripe/", include("djstripe.urls", namespace="djstripe")),
 
     path('customer/', CustomerListView.as_view()),
+    path('subscription-form/', PurchaseSubscriptionView.as_view() ),
 ]
 
 urlpatterns += router.urls

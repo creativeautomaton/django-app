@@ -9,18 +9,32 @@ import FormControl from '@material-ui/core/FormControl'
 import countries from '../country_data'
 
 export default function EditProfileForm(props) {
+
   const {
     handleSubmit,
     user,
     closeEditProfileModal,
   } = props
 
-  console.log(user);
+  // console.log(user);
+  // const address = {
+  //     street: '123 state street',
+  //     state:  'MO',
+  //     zipcode: 63108
+  // };
 
+
+  const [street, setStreet] = useState(user.street)
+  const [state, setState] = useState(user.state)
+  const [zipcode, setZipcode] = useState(user.zipcode)
   const [country, setCountry] = useState(user.home.id)
-
+  // console.log(street);
 
   const handleChange = (event) => {
+    // console.log(event.target.value);
+    setStreet(event.target.value)
+    setState(event.target.value)
+    setZipcode(event.target.value)
     setCountry(event.target.value)
   }
 
@@ -35,18 +49,27 @@ export default function EditProfileForm(props) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <InputLabel htmlFor="account Information" style={{ textAlign: 'left' }}  > User Account </InputLabel>
+      <br />
       <TextField className="user-auth" type="text" label="Username" name="username" defaultValue={user.username} required />
       <br />
       <TextField className="user-auth" type="text" label="Email" name="email" defaultValue={user.email} required />
       <br />
-      <TextField multiline className="user-auth" type="text" label="Biography" name="biography" defaultValue={user.biography} />
+
+      <InputLabel htmlFor="address" style={{ textAlign: 'left' }}  >Address</InputLabel>
+        <TextField className="user-auth" type="text" label="Street" name="street" onChange={handleChange} defaultValue={user.street} required />
+        <TextField className="user-auth" type="text" label="State" name="state" onChange={handleChange} defaultValue={user.state} required />
+        <TextField className="user-auth" type="text" label="Zipcode" name="zipcode" onChange={handleChange} defaultValue={user.zipcode} required />
       <br />
-      <FormControl>
-        <InputLabel htmlFor="countries">Home Country</InputLabel>
-        <Select style={{ textAlign: 'left' }} className="user-auth" name="country" onChange={handleChange} value={country}>
+
+      <FormControl >
+        <InputLabel htmlFor="countries">Country</InputLabel>
+        <Select style={{ textAlign: 'left' }} className="user-auth" name="country" onChange={handleChange} defaultValue={country}>
           {menuItems}
         </Select>
       </FormControl>
+      <br />
+      <TextField multiline rows="2" rowsMax="2" className="user-auth" type="text" label="Edit Bio" name="biography" defaultValue={user.biography} />
       <br />
       <Button variant="contained" color="primary" type="submit">Update</Button>
       <Button onClick={() => closeEditProfileModal()} color="secondary">Cancel</Button>

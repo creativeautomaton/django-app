@@ -20,6 +20,7 @@ import Success from '../modules/views/Success'
 // Pages
 import Dashboard from './Dashboard'
 import Profile from './Profile'
+import Subscription from './Subscription'
 import Feed from './Feed'
 import ForgotPassword from './ForgotPassword'
 import Home from './Home'
@@ -98,8 +99,9 @@ export function Layout(props) {
                 <Route path="/search" component={Search} />
                 <Route path="/feed" component={Feed} />
                 <PrivateRoute {...props} path="/profile" component={Profile}  />
-                <Route path="/u/:username" component={Profile} />
+                <PrivateRoute {...props} path="/subscription" component={Subscription}  />
                 <PrivateRoute {...props} path="/dashboard" component={Dashboard}  />
+                <Route path="/u/:username" component={Profile} /> 
                 <Route path="/login" component={Login} />
                 <Route path="/logout" component={Logout} />
                 <Route path="/register" component={Register} />

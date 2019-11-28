@@ -47,6 +47,8 @@ import PostModal from '../modules/views/PostModal'
 import PropTypes from 'prop-types';
 import AdminDrawer from '../modules/views/AdminDrawer'
 
+import CustomerSubscriptionForm from '../modules/views/CustomerSubscriptionForm'
+
 //  Stripe Components
 // import {StripeProvider, Elements} from 'react-stripe-elements';
 // import CheckoutForm from '../modules/form/CheckoutForm'
@@ -79,7 +81,7 @@ const styles = theme => ({
 
 const drawerWidth = 220;
 
-export function Profile(props) {
+export function Subscription(props) {
 
   const {
     classes,
@@ -116,80 +118,21 @@ export function Profile(props) {
   }, [handleScroll])
 
   /*
-  handlPostSubmit will create a new trip report and handleUpdateSubmit will
-  update an existing trip report. Both functions are passed into the Post Modal.
-  If the Post Modal is opened with openPostModal, updatePostModal
-  remains false and the blank form is displayed, and the submit button will
-  create a new post. If the Post Modal is openeed with openUpdatePostModal,
-  updatePostModal will flip to true, and the pre-filled in form will
-  display and the submit button will update the existing trip report.
-  */
-  const handlePostSubmit = (e) => {
-    e.preventDefault()
-    // e.target.countries.value must be split at the comma and then strings
-    // must be converted into numbers.
-    let countries
-    if (e.target.countries.value !== '') {
-      countries = e.target.countries.value.split(',').map(Number)
-    }
-    props.postTripReport(
-      user.pk,
-      e.target.title.value,
-      e.target.content.value,
-      countries,
-    )
-    props.closePostModal()
-  }
-
-  const handleUpdateSubmit = (e) => {
-    e.preventDefault()
-    let countries
-    if (e.target.countries.value !== '') {
-      countries = e.target.countries.value.split(',').map(Number)
-    }
-    props.updateTripReport(
-      modalPost.id,
-      user.pk,
-      e.target.title.value,
-      e.target.content.value,
-      countries,
-    )
-    props.closePostModal()
-  }
-
-  /*
-  This handle submit works with the edit profile modal.
+  This handle submit works with the edit Subscription modal.
   */
   const handleSubmit = (e) => {
     e.preventDefault()
-    // console.log(e.target.street.value);
-    const userCountryList = userCountries.map((country) => country.id)
-    props.putUserData(
-      e.target.username.value,
-      e.target.email.value, 
-      userCountryList,
-      Number(e.target.country.value),
-      e.target.biography.value,
-      e.target.street.value,
-      e.target.state.value,
-      e.target.zipcode.value,
-      'Your profile has been updated.',
-    )
-    props.closeEditProfileModal()
+    console.log(e.target);
+    // props.putUserSubscriptionData(
+    //   e.target.username.value,
+    //   e.target.email.value,
+    //   e.target.product.value,
+    //   'Your Subscription has been updated.',
+    // )
   }
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    props.toggleFavorite(e.currentTarget.id)
-  }
 
-  const listTripReports = tripReports && tripReports.map((tripReport) => (
-    <Grid item key={tripReport.id}>
-      <TripReportThumbnail tripReport={tripReport} {...props} />
-    </Grid>
-    ))
-
-  const isEdit = location.pathname === '/profile'
+  const isEdit = location.pathname === '/Subscription'
 
   if (posting || updating) {
  return (
@@ -209,79 +152,7 @@ export function Profile(props) {
       <AdminDrawer />
 
       <main className="DrawerContent" >
-
-              <CopyLinkModal {...props} />
-              {fetched && <CountryModal {...props} />}
-              <EditProfileModal handleSubmit={handleSubmit} {...props} />
-              <PostModal
-                {...props}
-                handlePostSubmit={handlePostSubmit}
-                handleUpdateSubmit={handleUpdateSubmit}
-              />
-              <ConfirmDeleteModal {...props} />
-              {modalPost.author && <TripReportModal handleClick={handleClick} {...props} />}
-
-              {/* This section is the user avatar, username, biography, etc.
-                <div className="left" style={{ width: '37%' }}>
-
-                  {user.home && <Avatar style={{ width: 150, height: 150, margin: '0 auto' }} src={user.home.flag} />}
-                </div>
-
-                */}
-              <div className="wrap" style={{ marginBottom: 60 }}>
-
-                <div className="right" style={{ textAlign: 'left', width: '100%', padding: 10 }}>
-                  <div style={{ height: 40 }}>
-                    <Typography variant="h3" gutterBottom>
-                      {user.username}
-                    </Typography>
-                    <Typography variant="h6" gutterBottom>
-                      {user.biography}
-                    </Typography>
-                  </div>
-
-                </div>
-              </div>
-              <br/>
-              <hr style={{ width: '100%', size: 2 }} />
-              <br/>
-
-                  <div style={{ height: 40 }}>
-                    <Button color="primary"  size="large" variant="contained" onClick={() => props.openEditProfileModal(user)}>
-                     Edit {user.username} Profile
-                    </Button>
-                  </div>
-
-
-              {/* This section is the user map
-                // <StripeProvider apiKey="pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y">
-                //   <Elements>
-                //       <CheckoutForm />
-                //   </Elements>
-                // </StripeProvider>
-
-
-                {fetched && <OpenStreetMap {...props} />}
-                <hr style={{ width: '85%', size: 1 }} />
-
-
-                <div>
-                  <Tooltip title="New Trip Report">
-                    <IconButton variant="contained" aria-label="New Trip Report" onClick={props.openPostModal}>
-                      <Add />
-                    </IconButton>
-                  </Tooltip>
-                  {fetchedTripReports && <Grid container spacing={10} justify="center">{listTripReports}</Grid>}
-                  <div style={{ height: 15 }} />
-                    {fetchingUserNext && <DotLoader size={50} color="#2196f3" className="content" />}
-                </div>
-
-
-
-                */}
-                {/* This section is the user posts */}
-
-
+             <CustomerSubscriptionForm handleSubmit={handleSubmit} {...props} />
         </main>
     </Container>
   </React.Fragment>
@@ -343,9 +214,9 @@ const mapDispatch = (dispatch) => bindActionCreators({
     closeCopyLinkModal,
   }, dispatch)
 
-export default connect(mapState, mapDispatch)(Profile)
+export default connect(mapState, mapDispatch)(Subscription)
 
-Profile.propTypes = {
+Subscription.propTypes = {
   pk: number,
   authenticated: bool.isRequired,
   user: shape({}).isRequired,
@@ -392,11 +263,11 @@ Profile.propTypes = {
   closeCopyLinkModal: func.isRequired,
   location: shape({}).isRequired,
 }
-Profile.propTypes = {
+Subscription.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-Profile.defaultProps = {
+Subscription.defaultProps = {
   modalLink: '',
   pk: null,
   next: '',

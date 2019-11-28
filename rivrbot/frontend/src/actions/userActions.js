@@ -9,6 +9,10 @@ export const fetchUserRejected = () => ({ type: 'FETCH_USER_REJECTED' })
 export const putUserDataFulfilled = (user) => ({ type: 'PUT_USER_DATA_FULFILLED', user })
 export const putUserDataRejected = () => ({ type: 'PUT_USER_DATA_REJECTED' })
 
+// Update stipe user data
+export const putUserSubscriptionDataFulfilled = (user) => ({ type: 'PUT_USER_SUBSCRIPTION_DATA_FULFILLED', user })
+export const putUserSubscriptionDataRejected = () => ({ type: 'PUT_USER_SUBSCRIPTION_DATA_REJECTED' })
+
 // Fetch sungle user action creators
 export const fetchSingleUserPending = () => ({ type: 'FETCH_SINGLE_USER_PENDING' })
 export const fetchSingleUserFulfilled = (user) => ({ type: 'FETCH_SINGLE_USER_FULFILLED', user })
@@ -16,7 +20,7 @@ export const fetchSingleUserRejected = () => ({ type: 'FETCH_SINGLE_USER_REJECTE
 
 
 // Fetch authenticated user action stripe account
-// export const fetchSingleUserStripe = () => ({ type: ' ' }) 
+// export const fetchSingleUserStripe = () => ({ type: ' ' })
 
 // GET requests the Django REST API, which returns authenticated user object.
 export const fetchUser = () => {
@@ -36,9 +40,10 @@ export const fetchUser = () => {
 }
 
 // PUT requests the Django REST API to update user object.
-export const putUserData = (username, email, countries, home, biography, success) => {
+export const putUserData = (username, email, countries, home, biography, street, state, zipcode, success) => {
   const token = localStorage.getItem('token')
   return (dispatch) => {
+    console.log(street);
     axios.put(
       `${process.env.REACT_APP_API_URL}/api/v1/rest-auth/user/`,
       {
@@ -47,6 +52,9 @@ export const putUserData = (username, email, countries, home, biography, success
         countries,
         home,
         biography,
+        street,
+        state,
+        zipcode,
       },
       { headers: { Authorization: `Token ${token}` } },
   )
@@ -56,6 +64,36 @@ export const putUserData = (username, email, countries, home, biography, success
         dispatch({ type: 'ADD_SUCCESS', success })
       })
       .catch((err) => {
+        console.log(err);
+        dispatch(putUserDataRejected())
+        dispatch({ type: 'ADD_ERROR', error: err })
+      })
+  }
+}
+
+// PUT requests the Django REST API to update user object.
+export const putUserSubscriptionData = (username, email, countries, street, state, zipcode, success) => {
+  const token = localStorage.getItem('token')
+  return (dispatch) => {
+    console.log(street);
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/api/v1/rest-auth/user/`,
+      {
+        username,
+        email,
+        street,
+        state,
+        zipcode,
+      },
+      { headers: { Authorization: `Token ${token}` } },
+  )
+      .then((response) => {
+        const user = response.data
+        dispatch(putUserDataFulfilled(user))
+        dispatch({ type: 'ADD_SUCCESS', success })
+      })
+      .catch((err) => {
+        console.log(err);
         dispatch(putUserDataRejected())
         dispatch({ type: 'ADD_ERROR', error: err })
       })
