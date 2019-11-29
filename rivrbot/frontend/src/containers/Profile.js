@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
-  func, number, bool, shape, arrayOf, string,
+  func, number, bool, shape, arrayOf, string, object
 } from 'prop-types'
 import Button from '@material-ui/core/Button'
 import Avatar from '@material-ui/core/Avatar'
@@ -81,8 +81,13 @@ const drawerWidth = 220;
 
 export function Profile(props) {
 
+  // Profile.propTypes = {
+  //   classes: PropTypes.object.isRequired,
+  // };
+  //
+  //   classes,
+
   const {
-    classes,
     next,
     fetchingUserNext,
     user,
@@ -166,7 +171,7 @@ export function Profile(props) {
     const userCountryList = userCountries.map((country) => country.id)
     props.putUserData(
       e.target.username.value,
-      e.target.email.value, 
+      e.target.email.value,
       userCountryList,
       Number(e.target.country.value),
       e.target.biography.value,

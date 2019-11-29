@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
  shape, string, bool, func, PropTypes
 } from 'prop-types'
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { DotLoader } from 'react-spinners'
@@ -30,6 +31,13 @@ import Post from './Post'
 import Register from './Register'
 import Search from './Search'
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  }
+})
+)
+
 
 export function Layout(props) {
   const {
@@ -39,7 +47,8 @@ export function Layout(props) {
     fetching,
   } = props;
 
-  // const { classes } = props;
+  // const classes = useStyles();
+  const { classes } = props;
 
   // const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -101,7 +110,7 @@ export function Layout(props) {
                 <PrivateRoute {...props} path="/profile" component={Profile}  />
                 <PrivateRoute {...props} path="/subscription" component={Subscription}  />
                 <PrivateRoute {...props} path="/dashboard" component={Dashboard}  />
-                <Route path="/u/:username" component={Profile} /> 
+                <Route path="/u/:username" component={Profile} />
                 <Route path="/login" component={Login} />
                 <Route path="/logout" component={Logout} />
                 <Route path="/register" component={Register} />
@@ -115,9 +124,6 @@ export function Layout(props) {
                 <AppAppBar {...props} />
 
               */}
-
-
-
 
             </div>
           ) : (
@@ -170,8 +176,9 @@ Layout.propTypes = {
   fetchTripReports: func.isRequired,
   fetchFeaturedTripReport: func.isRequired,
   fetchUserTripReports: func.isRequired,
-  classes: PropTypes.object.isRequired,
+
 }
+// Layout.proTypes = { classes: PropTypes.object.isRequired }
 
 Layout.defaultProps = {
   error: {},

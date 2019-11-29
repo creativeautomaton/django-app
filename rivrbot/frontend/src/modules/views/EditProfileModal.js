@@ -11,7 +11,7 @@ export default function EditProfileModal(props) {
   } = props
 
   return (
-    <Dialog onClose={closeEditProfileModal} open={showEditProfileModal}>
+    <Dialog onClose={closeEditProfileModal} open={showEditProfileModal} fullWidth={true} >
       <DialogContent>
         <EditProfileForm {...props} />
       </DialogContent>

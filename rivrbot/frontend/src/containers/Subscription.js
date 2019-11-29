@@ -84,7 +84,6 @@ const drawerWidth = 220;
 export function Subscription(props) {
 
   const {
-    classes,
     next,
     fetchingUserNext,
     user,
@@ -97,6 +96,8 @@ export function Subscription(props) {
     updating,
     fetchedTripReports,
   } = props
+
+  // const {  classes } = props
 
   const isBottom = (el) => {
     if (el) return el.getBoundingClientRect().bottom <= window.innerHeight
@@ -120,27 +121,28 @@ export function Subscription(props) {
   /*
   This handle submit works with the edit Subscription modal.
   */
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(e.target);
-    // props.putUserSubscriptionData(
-    //   e.target.username.value,
-    //   e.target.email.value,
-    //   e.target.product.value,
-    //   'Your Subscription has been updated.',
-    // )
-  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   console.log(e.target);
+  //   // props.putUserSubscriptionData(
+  //   //   e.target.username.value,
+  //   //   e.target.email.value,
+  //   //   e.target.product.value,
+  //   //   'Your Subscription has been updated.',
+  //   // )
+  // }
+  // <CustomerSubscriptionForm handleSubmit={handleSubmit} {...props} />
 
 
   const isEdit = location.pathname === '/Subscription'
 
   if (posting || updating) {
- return (
-   <div>
-     <DotLoader size={50} color="primary.dark" className="content" />
-     <br />
-   </div>
-)
+       return (
+         <div>
+           <DotLoader size={50} color="primary.dark" className="content" />
+           <br />
+         </div>
+      )
  }
 
   return (
@@ -148,20 +150,14 @@ export function Subscription(props) {
     <React.Fragment>
      <CssBaseline />
      <Container maxWidth="sm"  className="content" color="primary.dark" >
-
       <AdminDrawer />
-
       <main className="DrawerContent" >
-             <CustomerSubscriptionForm handleSubmit={handleSubmit} {...props} />
         </main>
     </Container>
   </React.Fragment>
 
   )
 }
-
-
-
 
 
 const mapState = (state) => ({
@@ -263,12 +259,12 @@ Subscription.propTypes = {
   closeCopyLinkModal: func.isRequired,
   location: shape({}).isRequired,
 }
-Subscription.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// Subscription.propTypes = {
+//   classes: PropTypes.object.isRequired
+// }
 
 Subscription.defaultProps = {
   modalLink: '',
   pk: null,
-  next: '',
+  next: '', 
 }
