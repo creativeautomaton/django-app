@@ -43,7 +43,7 @@ export const fetchUser = () => {
 export const putUserData = (username, email, countries, home, biography, street, state, zipcode, success) => {
   const token = localStorage.getItem('token')
   return (dispatch) => {
-    console.log(street);
+    // console.log(street);
     axios.put(
       `${process.env.REACT_APP_API_URL}/api/v1/rest-auth/user/`,
       {
@@ -64,7 +64,9 @@ export const putUserData = (username, email, countries, home, biography, street,
         dispatch({ type: 'ADD_SUCCESS', success })
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err.response);
+        // console.log(err.message);
+
         dispatch(putUserDataRejected())
         dispatch({ type: 'ADD_ERROR', error: err })
       })
@@ -87,30 +89,27 @@ export const fetchSingleUser = (username) => (dispatch) => {
   }
 
   // PUT requests the Django REST API to update user object.
-  // export const putUserSubscriptionData = (username, email, countries, street, state, zipcode, success) => {
-  //   const token = localStorage.getItem('token')
-  //   return (dispatch) => {
-  //     console.log(street);
-  //     axios.put(
-  //       `${process.env.REACT_APP_API_URL}/api/v1/rest-auth/user/`,
-  //       {
-  //         username,
-  //         email,
-  //         street,
-  //         state,
-  //         zipcode,
-  //       },
-  //       { headers: { Authorization: `Token ${token}` } },
-  //   )
-  //       .then((response) => {
-  //         const user = response.data
-  //         dispatch(putUserDataFulfilled(user))
-  //         dispatch({ type: 'ADD_SUCCESS', success })
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         dispatch(putUserDataRejected())
-  //         dispatch({ type: 'ADD_ERROR', error: err })
-  //       })
-  //   }
-  // }
+  export const putUserSubscriptionData = (product, success) => {
+    const token = localStorage.getItem('token')
+    return (dispatch) => {
+      // console.log(product, success);
+      axios.put(
+        `${process.env.REACT_APP_API_URL}/api/v1/rest-auth/user/`,
+        {
+          product,
+          success
+        },
+        { headers: { Authorization: `Token ${token}` } },
+    )
+        .then((response) => {
+          const user = response.data
+          dispatch(putUserDataFulfilled(user))
+          dispatch({ type: 'ADD_SUCCESS', success })
+        })
+        .catch((err) => {
+          // console.log(err);
+          dispatch(putUserDataRejected())
+          dispatch({ type: 'ADD_ERROR', error: err })
+        })
+    }
+  }

@@ -11,6 +11,7 @@ import tripReport from './tripReport'
 import stripe from './stripe/index.js'
 import user from './user'
 
+
 const reducer = combineReducers({
   auth, country, error, modal, tripReport, user,
 })
@@ -21,7 +22,7 @@ let middleware = applyMiddleware(thunk)
 
 // We only want the logger running in development.
 if (process.env.NODE_ENV === 'development') {
-  middleware = applyMiddleware(thunk, createLogger())
+  middleware = applyMiddleware(thunk, createLogger({ collapsed: true, errorTransformer: true}))
 }
 
 const enhancer = composeEnhancers(middleware)

@@ -127,10 +127,10 @@ export default function AdminDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState();
   //
   const handleDrawerToggle = (e) => {
-    // console.log('clicked me okay', e);
+    console.log('clicked me okay', e);
     setMobileOpen(!mobileOpen);
   };
 

@@ -29,7 +29,7 @@ import {
   openCopyLinkModal,
   closeCopyLinkModal,
 } from '../actions/modalActions'
-import { putUserData } from '../actions/userActions'
+import { putUserSubscriptionData } from '../actions/userActions'
 import { fetchCountry } from '../actions/countryActions'
 import {
   fetchNextUserTripReports, postTripReport, deleteTripReport, updateTripReport,
@@ -121,17 +121,18 @@ export function Subscription(props) {
   /*
   This handle submit works with the edit Subscription modal.
   */
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   console.log(e.target);
-  //   // props.putUserSubscriptionData(
-  //   //   e.target.username.value,
-  //   //   e.target.email.value,
-  //   //   e.target.product.value,
-  //   //   'Your Subscription has been updated.',
-  //   // )
-  // }
-  // <CustomerSubscriptionForm handleSubmit={handleSubmit} {...props} />
+  const handleSubscriptionSubmit = (e) => {
+    e.preventDefault()
+    console.log(e.currentTarget[0].value);
+    const product = e.currentTarget[0].value;
+    props.putUserSubscriptionData(
+      // e.target.username.value,
+      // e.target.email.value,
+       product,
+      'Your Subscription has been updated.',
+    )
+  }
+
 
 
   const isEdit = location.pathname === '/Subscription'
@@ -151,7 +152,8 @@ export function Subscription(props) {
      <CssBaseline />
      <Container maxWidth="sm"  className="content" color="primary.dark" >
       <AdminDrawer />
-      <main className="DrawerContent" >
+        <main className="DrawerContent" >
+          <CustomerSubscriptionForm handleSubscriptionSubmit={handleSubscriptionSubmit} {...props} />
         </main>
     </Container>
   </React.Fragment>
@@ -188,7 +190,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => bindActionCreators({
     fetchCountry,
-    putUserData,
+    putUserSubscriptionData,
     openEditProfileModal,
     closeEditProfileModal,
     openCountryModal,
@@ -237,7 +239,7 @@ Subscription.propTypes = {
   posting: bool.isRequired,
   updating: bool.isRequired,
   fetchCountry: func.isRequired,
-  putUserData: func.isRequired,
+  putUserSubscriptionData: func.isRequired,
   openEditProfileModal: func.isRequired,
   closeEditProfileModal: func.isRequired,
   openCountryModal: func.isRequired,
@@ -266,5 +268,5 @@ Subscription.propTypes = {
 Subscription.defaultProps = {
   modalLink: '',
   pk: null,
-  next: '', 
+  next: '',
 }

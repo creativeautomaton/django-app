@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { shape, func } from 'prop-types'
+import {
+  func, number, bool, shape, arrayOf, string,
+} from 'prop-types'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -34,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 export default function CustomerSubscriptionForm(props) {
 
   const {
-    handleSubmit,
+    handleSubscriptionSubmit,
     user
   } = props
 
@@ -44,6 +46,7 @@ export default function CustomerSubscriptionForm(props) {
 
  const handleChange = event => {
    console.log(event.target.value);
+
    setProduct(event.target.value);
  };
 
@@ -60,11 +63,10 @@ export default function CustomerSubscriptionForm(props) {
            <Typography variant="h6" gutterBottom>
             If you would like to continue using REVABOT's Virtual Assisstant services, please select from the plans.
            </Typography>
-           <form onSubmit={handleSubmit}>
+           <form onSubmit={handleSubscriptionSubmit}>
              <FormControl className={classes.formControl}>
-                 <InputLabel fullwidth id="demo-simple-select-label">Select Subscription Type</InputLabel>
+                 <InputLabel id="demo-simple-select-label">Select Subscription Type</InputLabel>
                  <Select
-                   autoWidth='true'
                    labelId="demo-simple-select-label"
                    id="demo-simple-select"
                    value={product}
@@ -75,7 +77,7 @@ export default function CustomerSubscriptionForm(props) {
                  </Select>
                </FormControl>
              <br />
-             <Button style={{ marginTop: 10 }} fullwidth variant="contained" color="primary" type="submit">
+             <Button style={{ marginTop: 10 }}  variant="contained" color="primary" type="submit">
              Upgrade RevaBot Plan
              </Button>
            </form>
@@ -89,6 +91,7 @@ export default function CustomerSubscriptionForm(props) {
 }
 
 CustomerSubscriptionForm.propTypes = {
-  handleSubmit: func.isRequired,
+  handleSubscriptionSubmit: string.isRequired,
+  product: func.isRequired,
   user: shape({}).isRequired,
 }

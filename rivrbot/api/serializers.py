@@ -9,6 +9,8 @@ from users.models import User
 from trips.models import TripReport
 
 from djstripe.models.core import Customer
+from djstripe.enums import SubscriptionStatus
+from djstripe.models import Plan, Subscription
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -27,6 +29,20 @@ class CustomerSerializer(serializers.ModelSerializer):
             "balance",
             "business_vat_id"
          )
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    '''
+    Stripe Customer serializer inherited from ModelSerializer.
+    '''
+    class Meta:
+        model = Subscription
+        fields = ('__all__')
+
+
+class UserStripePlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'product')
 
 
 class CurrenciesSerializer(serializers.ModelSerializer):

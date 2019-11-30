@@ -36,7 +36,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-    @cached_property
-    def has_active_subscription(self):
-        """Checks if a user has an active subscription."""
-        return subscriber_has_active_subscription(self)
+    # @cached_property
+    # def has_active_subscription(self):
+    #     """Checks if a user has an active subscription."""
+    #     return subscriber_has_active_subscription(self)

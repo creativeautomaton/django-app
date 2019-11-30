@@ -15,10 +15,9 @@ export default function EditProfileForm(props) {
     closeEditProfileModal,
   } = props
 
-  console.log(user);
+  // console.log(user);
 
   const [country, setCountry] = useState(user.home.id)
-
 
   const handleChange = (event) => {
     setCountry(event.target.value)

@@ -8,15 +8,21 @@ from rest_framework import permissions
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
 from api.serializers import (
-    CountrySerializer, TripReportSerializer, UserSerializer, CustomerSerializer
+    CountrySerializer,
+    TripReportSerializer,
+    UserSerializer,
+    CustomerSerializer,
+    SubscriptionSerializer
 )
 from djstripe.models.core import Customer
+from djstripe.enums import SubscriptionStatus
+from djstripe.models import Plan, Subscription
+
 from countries.models import Country
 from trips.models import TripReport
 from users.models import User
 import djstripe
 import stripe
-from users.models import User
 
 
 class TripReportSetPagination(PageNumberPagination):
@@ -42,28 +48,77 @@ class CountryListView(ListAPIView):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'demonym', 'alpha3code', 'languages__name')
 
-class CustomerListView(ListAPIView):
+class StripeViewSet(viewsets.ModelViewSet):
     '''
     When GET requests are made to this view, the user, who made the request,
-    has their ManyToMany relation toggled in the favoriter field of the Trip
-    Report model. The GET request returns the Trip Report object with the
-    updated favoriters array.
+    has their ManyToMany relation toggled in the djstripe model. The GET request
+    returns the Trip Report object with the updated favoriters array.
     '''
     queryset = Customer.objects.all().annotate(
-        count=Count('id')).order_by('-count')
+        count=Count('subscriber')).order_by('-count')
     serializer_class = CustomerSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('=id', )
     ordering_fields = ('pk', )
 
-class PurchaseSubscriptionView(ListAPIView):
+
+class StripeSubscriptionViewSet(viewsets.ModelViewSet):
+
+    queryset = Subscription.objects.all()
+    # queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+    # stripe_data = stripe.Product.create(
+    #    api_key=djstripe.settings.STRIPE_SECRET_KEY,
+    #    name="Monthly membership base fee test",
+    #    type="service",
+    # )
+
+    def get(self, request):
+
+
+        djstripe_obj = djstripe.models.Product.sync_from_stripe_data(stripe_data)
+        # djstripe_sync_models
+        return djstripe_obj
+
+
+
+class StripeChargeTest(viewsets.ModelViewSet):
+
+    # sync_from_stripe_data to save it to the database,
+    # and recursively update any referenced objects
+    # permission_classes = (permissions.IsAuthenticated)
+    # serializer_class = SubscriptionSerializer
+    # stripe_data = stripe.Product.create(
+    #    api_key=djstripe.settings.STRIPE_SECRET_KEY,
+    #    name="Monthly membership base fee test",
+    #    type="service",
+    # )
+    # queryset = stripe_data
+
+    def get(self, request):
+        stripe = get_object_or_404(Stripe, pk=pk)
+
+        # stripe API return value is a dict-like object
+        return stripe_data
+        # sync_from_stripe_data to save it to the database,
+        # and recursively update any referenced objects
+        # djstripe_obj = djstripe.models.Product.sync_from_stripe_data(stripe_data)
+        # djstripe_sync_models
+        # return djstripe_obj
+
+
+
+class PurchaseSubscriptionView(viewsets.ModelViewSet):
+
+      queryset = User.objects.all()
+      serializer_class = UserSerializer
 
       # Create the stripe Customer, by default subscriber Model is User,
       # this can be overridden with settings.DJSTRIPE_SUBSCRIBER_MODEL
       permission_classes = (permissions.IsAuthenticated,)
 
       def get(self, request, slug=None, format=None, pk=None):
-          obj = get_object_or_404(TripReport, id=pk)
+          # obj = get_object_or_404(TripReport, id=pk)
           user = self.request.user
           if user.is_authenticated:
               customer, created = djstripe.models.Customer.get_or_create(subscriber=user)
@@ -86,6 +141,18 @@ class PurchaseSubscriptionView(ListAPIView):
               subscription = djstripe.models.Subscription.sync_from_stripe_data(
                   stripe_subscription
               )
+        # permission_classes = (permissions.IsAuthenticated,)
+        #
+        # def get(self, request, slug=None, format=None, pk=None):
+        #     obj = get_object_or_404(TripReport, id=pk)
+        #     user = self.request.user
+        #     if user.is_authenticated:
+        #         if user in obj.favoriters.all():
+        #             obj.favoriters.remove(user)
+        #         else:
+        #             obj.favoriters.add(user)
+        #     serializer = TripReportSerializer(obj)
+        #     return Response(serializer.data)
 
 class TripReportViewSet(viewsets.ModelViewSet):
     '''

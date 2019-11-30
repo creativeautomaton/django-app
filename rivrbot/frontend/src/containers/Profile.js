@@ -79,13 +79,7 @@ const styles = theme => ({
 
 const drawerWidth = 220;
 
-export function Profile(props) {
-
-  // Profile.propTypes = {
-  //   classes: PropTypes.object.isRequired,
-  // };
-  //
-  //   classes,
+export function Profile(props) { 
 
   const {
     next,
@@ -397,9 +391,9 @@ Profile.propTypes = {
   closeCopyLinkModal: func.isRequired,
   location: shape({}).isRequired,
 }
-Profile.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// Profile.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
 Profile.defaultProps = {
   modalLink: '',
