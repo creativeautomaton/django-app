@@ -216,10 +216,11 @@ ROOT_URLCONF = 'backend.urls'
 
 STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "<your publishable key>")
 STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "<your secret key>")
-STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y")
-STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY")
 STRIPE_LIVE_MODE = False  # Change to True in production
-DJSTRIPE_WEBHOOK_SECRET = "whsec_eyZwyp4hfbGbTMzux2726P7m2IjYiTDA"
+
+DJSTRIPE_WEBHOOK_SECRET=os.environ.get("DJSTRIPE_WEBHOOK_SECRET")
 STRIPE_API_VERSION = '2019-09-09'
 # Get it from the section in the Stripe dashboard where you added the webhook endpoint looks like whsec_xxx
 
