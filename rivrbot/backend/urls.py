@@ -13,5 +13,4 @@ urlpatterns = [
     # re_path(r'^payments/', include('djstripe.urls', namespace="djstripe")),
     # re_path(r'^subscription/', include('djstripe.urls', namespace="djstripe")),
     path('.*', TemplateView.as_view(template_name='index.html')),
-
 ]

@@ -3,8 +3,8 @@ import os
 import dj_database_url
 import stripe
 
-stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
-# stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+# stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
 
 # stripe.Customer.create(
@@ -19,12 +19,12 @@ stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
 
 
 # Stripe Key Settings
-STRIPE_SECRET_KEY = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_y9woKYzH0uJ254FkSTSyUmm500fDHN3t2y'
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 
 # current aws keys
-# export AWS_ACCESS_KEY_ID='AKIASWFFMV2VAEVGACF5'
-# export AWS_SECRET_ACCESS_KEY='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'
+export AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+export AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 
 # Current Subscription Price
