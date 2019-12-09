@@ -16,6 +16,9 @@ export function Register(props) {
     e.preventDefault()
 
     const country = e.target.country.value && Number(e.target.country.value)
+    const street =  ' ';
+    const state =  ' ';
+    const zipcode =  ' ';
 
     props.authRegister(
       e.target.username.value,
@@ -23,6 +26,9 @@ export function Register(props) {
       e.target.password1.value,
       e.target.password2.value,
       country,
+      e.target.street.value,
+      e.target.state.value,
+      e.target.zipcode.value,
     )
     e.target.password1.value = ''
     e.target.password2.value = ''

@@ -9,6 +9,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 
+
 const styles = theme => ({
   title: {
     fontSize: 24,
@@ -73,8 +74,21 @@ const styles = theme => ({
 function AppAppBar(props) {
   const { classes } = props;
 
+
+
   return ({ authenticated }) => (
     <div>
+
+      // for when on  mobile
+      <SwipeableDrawer
+          open={state.left}
+          onClose={toggleDrawer('left', false)}
+          onOpen={toggleDrawer('left', true)}
+        >
+        {sideList('left')}
+      </SwipeableDrawer>
+
+
       <AppBar position="fixed">
 
 

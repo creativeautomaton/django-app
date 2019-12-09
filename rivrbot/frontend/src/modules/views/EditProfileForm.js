@@ -7,6 +7,7 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import countries from '../country_data'
+import states from '../us_states_data.json';
 
 export default function EditProfileForm(props) {
 
@@ -29,6 +30,7 @@ export default function EditProfileForm(props) {
   const [zipcode, setZipcode] = useState(user.zipcode)
   const [country, setCountry] = useState(user.home.id)
   // console.log(street);
+  const [uSState, setUSState] = useState('')
 
   const handleChange = (event) => {
     // console.log(event.target.value);
@@ -36,6 +38,9 @@ export default function EditProfileForm(props) {
     setState(event.target.value)
     setZipcode(event.target.value)
     setCountry(event.target.value)
+  }
+  const handleChangeState = (event) => {
+    setUSState(event.target.value)
   }
 
   /*
@@ -45,6 +50,9 @@ export default function EditProfileForm(props) {
   */
   const menuItems = [...countries].sort((a, b) => a.name > b.name).map((cntry) => (
     <MenuItem key={cntry.pk} value={cntry.pk}>{cntry.name}</MenuItem>
+  ))
+  const menuStateItems = [...states].sort((a, b) => a.name > b.name).map((state) => (
+    <MenuItem key={state.pk} value={state.pk}>{state.name}</MenuItem>
   ))
 
   return (
@@ -58,7 +66,12 @@ export default function EditProfileForm(props) {
 
       <InputLabel htmlFor="address" style={{ textAlign: 'left' }}  >Address</InputLabel>
         <TextField className="user-auth" type="text" label="Street" name="street" onChange={handleChange} defaultValue={user.street} required />
-        <TextField className="user-auth" type="text" label="State" name="state" onChange={handleChange} defaultValue={user.state} required />
+        <FormControl>
+          <InputLabel  htmlFor="state">State</InputLabel>
+          <Select className="user-auth" name="state" onChange={handleChangeState} value={uSState} defaultValue={user.state} >
+            {menuStateItems}
+          </Select>
+        </FormControl>
         <TextField className="user-auth" type="text" label="Zipcode" name="zipcode" onChange={handleChange} defaultValue={user.zipcode} required />
       <br />
 

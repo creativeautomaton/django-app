@@ -8,6 +8,7 @@ from countries.models import Country, Currency, Language, RegionalBloc
 from users.models import User
 from trips.models import TripReport
 
+import stripe
 from djstripe.models.core import Customer
 from djstripe.enums import SubscriptionStatus
 from djstripe.models import Plan, Subscription
@@ -213,9 +214,9 @@ class RegistrationSerializer(RegisterSerializer):
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
     home = CountryField(queryset=Country.objects.all(), required=True, write_only=True)
-    street = serializers.CharField(required=True, write_only=True)
-    state = serializers.CharField(required=True, write_only=True)
-    zipcode = serializers.CharField(required=True, write_only=True)
+    street = serializers.CharField(write_only=True, allow_blank=True)
+    state = serializers.CharField(write_only=True, allow_blank=True)
+    zipcode = serializers.CharField(write_only=True, allow_blank=True)
 
 
     def get_cleaned_data(self):
@@ -241,6 +242,71 @@ class RegistrationSerializer(RegisterSerializer):
         self.cleaned_data = self.get_cleaned_data()
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
+        # setup_user_stripe_account(request, user, [])
         user.home = self.cleaned_data.get('home')
+        user.street = self.cleaned_data.get('street')
+        user.state = self.cleaned_data.get('state')
+        user.zipcode = self.cleaned_data.get('zipcode') 
         user.save()
         return user
+
+        # Create the stripe Customer, by default subscriber Model is User,
+        # this can be overridden with settings.DJSTRIPE_SUBSCRIBER_MODEL
+        customer, created = djstripe.models.Customer.get_or_create(subscriber=user)
+
+        # Add the source as the customer's default card
+        customer.add_card(stripe_source)
+
+        # Using the Stripe API, create a subscription for this customer,
+        # using the customer's default payment source
+        stripe_subscription = stripe.Subscription.create(
+            customer=customer.id,
+            items=[{"plan": plan.id}],
+            billing="charge_automatically",
+            # tax_percent=15,
+            api_key=djstripe.settings.STRIPE_SECRET_KEY,
+        )
+
+        # Sync the Stripe API return data to the database,
+        # this way we don't need to wait for a webhook-triggered sync
+        subscription = djstripe.models.Subscription.sync_from_stripe_data(
+            stripe_subscription
+        )
+
+    def form_valid(self, form):
+        stripe_source = form.cleaned_data["stripe_source"]
+        email = form.cleaned_data["email"]
+        plan = form.cleaned_data["plan"]
+
+        # Guest checkout with the provided email
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            user = User.objects.create(username=email, email=email)
+
+        # Create the stripe Customer, by default subscriber Model is User,
+        # this can be overridden with settings.DJSTRIPE_SUBSCRIBER_MODEL
+        customer, created = djstripe.models.Customer.get_or_create(subscriber=user)
+
+        # Add the source as the customer's default card
+        customer.add_card(stripe_source)
+
+        # Using the Stripe API, create a subscription for this customer,
+        # using the customer's default payment source
+        stripe_subscription = stripe.Subscription.create(
+            customer=customer.id,
+            items=[{"plan": plan.id}],
+            billing="charge_automatically",
+            # tax_percent=15,
+            api_key=djstripe.settings.STRIPE_SECRET_KEY,
+        )
+
+        # Sync the Stripe API return data to the database,
+        # this way we don't need to wait for a webhook-triggered sync
+        subscription = djstripe.models.Subscription.sync_from_stripe_data(
+            stripe_subscription
+        )
+
+        self.request.subscription = subscription
+
+        return super().form_valid(form)

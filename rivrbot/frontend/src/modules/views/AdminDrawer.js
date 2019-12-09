@@ -18,9 +18,26 @@ import {
 } from 'prop-types'
 
 
-const drawerWidth = 220;
+const drawerWidth = 180;
 
-const categories = [
+const dashboardPages = [
+  {
+    id: 'Account',
+    children: [
+      { id: 'Subscription', icon: <AccountBalanceWalletIcon />, active: true, to:'/subscription/' },
+      { id: 'Profile', icon: <PeopleIcon />,  to: '/profile/' }
+    ],
+  },
+  // {
+  //   id: 'Quality',
+  //   children: [
+  //     { id: 'Analytics', icon: <SettingsIcon /> },
+  //     { id: 'Performance', icon: <TimerIcon /> },
+  //     { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
+  //   ],
+  // },
+];
+const publicPages = [
   {
     id: 'Account',
     children: [
@@ -124,17 +141,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function AdminDrawer(props) {
-  const classes = useStyles();
-  const theme = useTheme();
-
-  const [mobileOpen, setMobileOpen] = React.useState();
+  // const classes = useStyles();
+  // const theme = useTheme();
   //
-  const handleDrawerToggle = (e) => {
-    console.log('clicked me okay', e);
-    setMobileOpen(!mobileOpen);
-  };
+  // const [mobileOpen, setMobileOpen] = React.useState();
+  // //
+  // const handleDrawerToggle = (e) => {
+  //   console.log('clicked me okay', e);
+  //   setMobileOpen(!mobileOpen);
+  // };
+  //
+  // const { container } = props;
 
   const { container } = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const drawer = (
     <List disablePadding >
@@ -162,7 +188,7 @@ export default function AdminDrawer(props) {
           Dashboard
         </ListItemText>
       </ListItem>
-      {categories.map(({ id, children }) => (
+      {dashboardPages.map(({ id, children }) => (
         <React.Fragment key={id}>
           <ListItem className={classes.categoryHeader}>
             <ListItemText
@@ -196,12 +222,12 @@ export default function AdminDrawer(props) {
         </React.Fragment>
       ))}
     </List>
-
   );
+  // End of the drawer constant
 
   return (
     <div>
-      <Hidden smUp={mobileOpen} implementation="js" >
+      <Hidden smUp implementation="js" >
             <Drawer
               container={container}
               variant="temporary"
@@ -212,13 +238,13 @@ export default function AdminDrawer(props) {
                 paper: classes.drawerPaper,
               }}
               ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                keepMounted: false, // Better open performance on mobile.
               }}
             >
               {drawer}
             </Drawer>
       </Hidden>
-      <Hidden xsDown={mobileOpen} implementation="js">
+      <Hidden xsDown implementation="js">
             <Drawer
               classes={{
                 paper: classes.drawerPaper,
@@ -233,6 +259,6 @@ export default function AdminDrawer(props) {
   );
 }
 
-// AdminDrawer.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
+AdminDrawer.propTypes = {
+  classes: PropTypes.object.isRequired,
+};

@@ -48,7 +48,7 @@ export const authLogin = (username, password) => (dispatch) => {
 Similar to login, registers a user with the Django REST API which returns a
 token to authenticate the user. This token is stored in localStorage.
 */
-export const authRegister = (username, email, password1, password2, home) => (dispatch) => {
+export const authRegister = (username, email, password1, password2, home, street, state, zipcode) => (dispatch) => {
   localStorage.removeItem('token')
   dispatch(authStart())
   // console.log(username, email, password1, password2, home);
@@ -58,7 +58,10 @@ export const authRegister = (username, email, password1, password2, home) => (di
     email,
     password1,
     password2,
-    home
+    home,
+    street,
+    state,
+    zipcode
   })
     .then((response) => {
       // console.log(response);
@@ -71,10 +74,10 @@ export const authRegister = (username, email, password1, password2, home) => (di
       // axios.post(`${process.env.REACT_APP_API_URL}/customer-created/webhook/`)
     })
     .catch((error) => {
-      // console.log(error.response.data);
+      console.log(error.response.data);
       console.log(error.response);
-      // console.log(error.message);
-      // console.log(error.config);
+      console.log(error.message);
+      console.log(error.config);
       dispatch(authFail())
       dispatch({ type: 'ADD_ERROR', error: error })
     })

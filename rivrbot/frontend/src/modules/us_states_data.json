@@ -1,0 +1,316 @@
+[
+    {
+        "name": "Alabama",
+        "abbreviation": "AL",
+        "pk": 1
+},
+    {
+        "name": "Alaska",
+        "abbreviation": "AK",
+        "pk": 2
+},
+
+    {
+        "name": "Arizona",
+        "abbreviation": "AZ"
+    ,
+"pk": 3
+},
+    {
+        "name": "Arkansas",
+        "abbreviation": "AR"
+    ,
+"pk": 4
+},
+    {
+        "name": "California",
+        "abbreviation": "CA"
+    ,
+"pk": 5
+},
+    {
+        "name": "Colorado",
+        "abbreviation": "CO"
+    ,
+"pk": 6
+},
+    {
+        "name": "Connecticut",
+        "abbreviation": "CT"
+    ,
+"pk": 7
+},
+    {
+        "name": "Delaware",
+        "abbreviation": "DE"
+    ,
+"pk": 8
+},
+    {
+        "name": "District Of Columbia",
+        "abbreviation": "DC"
+    ,
+"pk": 9
+},
+
+    {
+        "name": "Florida",
+        "abbreviation": "FL"
+    ,
+"pk": 10
+},
+    {
+        "name": "Georgia",
+        "abbreviation": "GA"
+    ,
+"pk": 11
+},
+
+    {
+        "name": "Hawaii",
+        "abbreviation": "HI"
+    ,
+"pk": 12
+},
+    {
+        "name": "Idaho",
+        "abbreviation": "ID"
+    ,
+"pk": 13
+},
+    {
+        "name": "Illinois",
+        "abbreviation": "IL"
+    ,
+"pk": 14
+},
+    {
+        "name": "Indiana",
+        "abbreviation": "IN"
+    ,
+"pk": 15
+},
+    {
+        "name": "Iowa",
+        "abbreviation": "IA"
+    ,
+"pk": 16
+},
+    {
+        "name": "Kansas",
+        "abbreviation": "KS"
+    ,
+"pk": 17
+},
+    {
+        "name": "Kentucky",
+        "abbreviation": "KY"
+    ,
+"pk": 18
+},
+    {
+        "name": "Louisiana",
+        "abbreviation": "LA"
+    ,
+"pk": 19
+},
+    {
+        "name": "Maine",
+        "abbreviation": "ME"
+    ,
+"pk": 20
+},
+
+    {
+        "name": "Maryland",
+        "abbreviation": "MD"
+    ,
+"pk": 21
+},
+    {
+        "name": "Massachusetts",
+        "abbreviation": "MA"
+    ,
+"pk": 22
+},
+    {
+        "name": "Michigan",
+        "abbreviation": "MI"
+    ,
+"pk": 23
+},
+    {
+        "name": "Minnesota",
+        "abbreviation": "MN"
+    ,
+"pk": 24
+},
+    {
+        "name": "Mississippi",
+        "abbreviation": "MS" ,
+        "pk": 25
+},
+    {
+        "name": "Missouri",
+        "abbreviation": "MO",
+        "pk": 26
+},
+    {
+        "name": "Montana",
+        "abbreviation": "MT"
+    ,
+"pk": 27
+},
+    {
+        "name": "Nebraska",
+        "abbreviation": "NE"
+    ,
+"pk": 28
+},
+    {
+        "name": "Nevada",
+        "abbreviation": "NV"
+    ,
+"pk": 29
+},
+    {
+        "name": "New Hampshire",
+        "abbreviation": "NH"
+    ,
+"pk": 30
+},
+    {
+        "name": "New Jersey",
+        "abbreviation": "NJ"
+    ,
+"pk": 31
+},
+    {
+        "name": "New Mexico",
+        "abbreviation": "NM"
+    ,
+"pk": 32
+},
+    {
+        "name": "New York",
+        "abbreviation": "NY"
+    ,
+"pk": 33
+},
+    {
+        "name": "North Carolina",
+        "abbreviation": "NC"
+    ,
+"pk": 34
+},
+    {
+        "name": "North Dakota",
+        "abbreviation": "ND"
+    ,
+"pk": 35
+},
+
+    {
+        "name": "Ohio",
+        "abbreviation": "OH"
+    ,
+"pk": 36
+},
+    {
+        "name": "Oklahoma",
+        "abbreviation": "OK"
+    ,
+"pk": 37
+},
+    {
+        "name": "Oregon",
+        "abbreviation": "OR"
+    ,
+"pk": 38
+},
+
+    {
+        "name": "Pennsylvania",
+        "abbreviation": "PA"
+    ,
+"pk": 39
+},
+
+    {
+        "name": "Rhode Island",
+        "abbreviation": "RI"
+    ,
+"pk": 40
+},
+    {
+        "name": "South Carolina",
+        "abbreviation": "SC"
+    ,
+"pk": 41
+},
+    {
+        "name": "South Dakota",
+        "abbreviation": "SD"
+    ,
+"pk": 42
+},
+    {
+        "name": "Tennessee",
+        "abbreviation": "TN"
+    ,
+"pk": 43
+},
+    {
+        "name": "Texas",
+        "abbreviation": "TX"
+    ,
+"pk": 44
+},
+    {
+        "name": "Utah",
+        "abbreviation": "UT"
+    ,
+"pk": 45
+},
+    {
+        "name": "Vermont",
+        "abbreviation": "VT"
+    ,
+"pk": 46
+},
+    {
+        "name": "Virgin Islands",
+        "abbreviation": "VI"
+    ,
+"pk": 47
+},
+    {
+        "name": "Virginia",
+        "abbreviation": "VA"
+    ,
+"pk": 48
+},
+    {
+        "name": "Washington",
+        "abbreviation": "WA"
+    ,
+"pk": 49
+},
+    {
+        "name": "West Virginia",
+        "abbreviation": "WV"
+    ,
+"pk": 50
+},
+    {
+        "name": "Wisconsin",
+        "abbreviation": "WI"
+    ,
+"pk": 51
+},
+    {
+        "name": "Wyoming",
+        "abbreviation": "WY",
+        "pk": 52
+    }
+]
