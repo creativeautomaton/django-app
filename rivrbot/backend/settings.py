@@ -4,7 +4,7 @@ import dj_database_url
 import stripe
 
 # stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+# stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
 
 # stripe.Customer.create(
@@ -19,12 +19,12 @@ stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
 
 # Stripe Key Settings
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+# STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+# STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 
 # current aws keys
-export AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-export AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 
 # Current Subscription Price
@@ -216,11 +216,11 @@ ROOT_URLCONF = 'backend.urls'
 
 STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "<your publishable key>")
 STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "<your secret key>")
-STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY")
-STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "STRIPE_PUBLISHABLE_KEY")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w")
 STRIPE_LIVE_MODE = False  # Change to True in production
+DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"  # Get it from the section in the Stripe dashboard where you added the webhook endpoint
 
-DJSTRIPE_WEBHOOK_SECRET=os.environ.get("DJSTRIPE_WEBHOOK_SECRET")
 STRIPE_API_VERSION = '2019-09-09'
 # Get it from the section in the Stripe dashboard where you added the webhook endpoint looks like whsec_xxx
 
