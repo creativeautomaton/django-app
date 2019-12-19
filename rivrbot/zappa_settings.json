@@ -2,9 +2,9 @@
     "dev": {
         "django_settings": "backend.settings",
         "profile_name": null,
-        "project_name": "rivrbot",
+        "project_name": "revabot",
         "runtime": "python3.6",
         "aws_region": "us-east-2",
-        "s3_bucket": "zappa-gsj211v8d"
+        "s3_bucket": "revabot-zappa-library" 
     }
 }
