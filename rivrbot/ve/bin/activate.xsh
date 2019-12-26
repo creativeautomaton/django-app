@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"/var/task/ve"
+$VIRTUAL_ENV = r"/home/deepmind2/repos/django-app/rivrbot/ve"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]

@@ -33,3 +33,8 @@ __pycache__
 *~
 /media
 /staticfiles
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

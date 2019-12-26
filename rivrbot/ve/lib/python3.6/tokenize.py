@@ -1,1 +1,1 @@
-/var/lang/lib/python3.6/tokenize.py
+/usr/lib/python3.6/tokenize.py

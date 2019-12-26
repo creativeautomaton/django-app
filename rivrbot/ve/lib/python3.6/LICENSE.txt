@@ -1,1 +1,1 @@
-/var/lang/lib/python3.6/LICENSE.txt
+/usr/lib/python3.6/LICENSE.txt

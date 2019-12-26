@@ -1,1 +1,1 @@
-/var/lang/lib/python3.6/sre_compile.py
+/usr/lib/python3.6/sre_compile.py

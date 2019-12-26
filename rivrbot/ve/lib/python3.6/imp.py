@@ -1,1 +1,1 @@
-/var/lang/lib/python3.6/imp.py
+/usr/lib/python3.6/imp.py

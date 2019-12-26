@@ -1,1 +1,1 @@
-/var/lang/lib/python3.6/locale.py
+/usr/lib/python3.6/locale.py

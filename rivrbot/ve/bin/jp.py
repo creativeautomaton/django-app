@@ -1,4 +1,4 @@
-#!/var/task/ve/bin/python3.6
+#!/home/deepmind2/repos/django-app/rivrbot/ve/bin/python3
 
 import sys
 import json

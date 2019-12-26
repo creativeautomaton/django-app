@@ -1,1 +1,1 @@
-/var/lang/lib/python3.6/fnmatch.py
+/usr/lib/python3.6/fnmatch.py
