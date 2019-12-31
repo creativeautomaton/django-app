@@ -1,7 +1,7 @@
 {
     "dev": {
         "django_settings": "backend.settings",
-        "profile_name": null,
+        "profile_name": "zappa1",
         "project_name": "revabot",
         "runtime": "python3.6",
         "aws_region": "us-east-2",
@@ -13,6 +13,13 @@
             "Effect": "Allow",
             "Action": ["rekognition:*"], // AWS Service ARN
             "Resource": "*"
-        }]
+        }],
+        "vpc_config" : {
+            "SubnetIds": [
+              "subnet-a9edf2c1",
+              "subnet-05ffaa7f"
+             ], // use the private subnet
+            "SecurityGroupIds": [ "sg-e9150a8a" ]
+        }
     }
 }

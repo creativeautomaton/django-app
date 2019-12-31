@@ -43,7 +43,7 @@ SECRET_KEY = 'ui7pf@bh&+40ilc_h$j_f3(!%c&1hwu%sng36yus&&16edgp+2'
 DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost',
-'llsmtnqwf3.execute-api.us-east-2.amazonaws.com','www.rivrbot.dev', '2cc2fbe5.ngrok.io']
+'tah6kfw2uh.execute-api.us-east-2.amazonaws.com','revabot.online',]
 
 
 # Application definition
@@ -202,11 +202,23 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': 'db',
+        'PASSWORD': 'postgres',
+        'HOST': 'revabot-dev-database-1.cbczc4bx4ffl.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
+
 
 SECRET_KEY = 'your secret django key'
 EMAIL_USER = 'your email username'
@@ -225,21 +237,21 @@ DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"  # Get it from the section in the Stripe d
 STRIPE_API_VERSION = '2019-09-09'
 # Get it from the section in the Stripe dashboard where you added the webhook endpoint looks like whsec_xxx
 
-DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
-YOUR_S3_BUCKET = "revabot-zappa-library"
-
-# How to construct S3 URLs ("auto", "path", "virtual").
-AWS_S3_ADDRESSING_STYLE = "auto"
-
-#  old staticfile setting
-# STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
-STATICFILES_STORAGE = "django_s3_storage.storage.ManifestStaticS3Storage"
-AWS_S3_BUCKET_NAME_STATIC = YOUR_S3_BUCKET
-
-# These next two lines will serve the static files directly
-# from the s3 bucket
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % YOUR_S3_BUCKET
-STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+# DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+# YOUR_S3_BUCKET = "revabot-zappa-library"
+#
+# # How to construct S3 URLs ("auto", "path", "virtual").
+# AWS_S3_ADDRESSING_STYLE = "auto"
+#
+# #  old staticfile setting
+# # STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+# STATICFILES_STORAGE = "django_s3_storage.storage.ManifestStaticS3Storage"
+# AWS_S3_BUCKET_NAME_STATIC = YOUR_S3_BUCKET
+#
+# # These next two lines will serve the static files directly
+# # from the s3 bucket
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % YOUR_S3_BUCKET
+# STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 
 # OR...if you create a fancy custom domain for your static files use:
 #AWS_S3_PUBLIC_URL_STATIC = "https://static.zappaguide.com/"
@@ -258,9 +270,34 @@ if 'TRAVIS' in os.environ:
         }
     }
 
+if 'SERVERTYPE' in os.environ and os.environ['SERVERTYPE'] == 'AWS Lambda':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'revabot-dev-database-1.cbczc4bx4ffl.us-east-2.rds.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+else :
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': '',
+            'HOST': 'db',
+            'PORT': '5432',
+        }
+    }
+    SECRET_KEY = 'your secret django key'
+    EMAIL_USER = 'your email username'
+    EMAIL_PASS = 'your gmail app password'
 
 # Local settings.
-try:
-    from backend.local_settings import *
-except ImportError:
-    pass
+# try:
+#     from backend.local_settings import *
+# except ImportError:
+#     pass
