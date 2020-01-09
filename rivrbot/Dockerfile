@@ -13,10 +13,4 @@ RUN \
  python3 -m pip install -r requirements.txt --no-cache-dir && \
  apk --purge del .build-deps
 
- # Build static assets
- # RUN SECRET_KEY=secret python3 manage.py collectstatic
-
 COPY . /code/
-
-# Copy Python files
-COPY . /code-test/

@@ -3,6 +3,10 @@ import os
 import dj_database_url
 import stripe
 import boto3
+import shlex, subprocess
+
+subprocess.Popen(["cd frontend/ &&npm run start"], shell=True)
+# subprocess.check_call(["npm run start"], shell=True)
 
 # stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
 # stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
@@ -23,10 +27,6 @@ import boto3
 # STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 # STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 
-# current aws keys
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-
 
 # Current Subscription Price
 SUBSCRIPTION_PRICE = 1500
@@ -44,7 +44,7 @@ SECRET_KEY = 'ui7pf@bh&+40ilc_h$j_f3(!%c&1hwu%sng36yus&&16edgp+2'
 DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost',
-'tah6kfw2uh.execute-api.us-east-2.amazonaws.com', 'lds0kwfx36.execute-api.us-east-2.amazonaws.com','revabot.online',]
+'lds0kwfx36.execute-api.us-east-2.amazonaws.com','revabot.online',]
 
 # Application definition
 
@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "djstripe",
     'django_s3_storage',
-    'boto3'
+    'boto3',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -102,7 +102,10 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "frontend/build"), ],
+        'DIRS': [
+            os.path.join(BASE_DIR, "frontend/build"),
+            # os.path.join(BASE_DIR, "/frontend/build/")
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,14 +155,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
+# print(BASE_DIR + '/frontend/build/')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/public'),
+    # os.path.join(BASE_DIR, 'frontend/public'),
+    os.path.join('frontend/build/'),
+    os.path.join('static/'),
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
 ]
-
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
@@ -245,11 +252,11 @@ s3 = boto3.resource('s3',
          aws_access_key_id=AWS_ACCESS_KEY_ID,
          aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
 # CloudFront  on AWS
 # If you’re using S3 as a CDN (via CloudFront),
 # you’ll probably want this storage to serve those files using that:
@@ -264,7 +271,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 
 
-# DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
 YOUR_S3_BUCKET = "revabot-zappa-library"
 AWS_STORAGE_BUCKET_NAME = "revabot-zappa-library"
 AWS_DEFAULT_ACL = None
@@ -273,7 +280,7 @@ AWS_DEFAULT_ACL = None
 # AWS_S3_ADDRESSING_STYLE = "auto"
 #
 # old staticfile setting
-# STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 # STATICFILES_STORAGE = "django_s3_storage.storage.ManifestStaticS3Storage"
 AWS_S3_BUCKET_NAME_STATIC = YOUR_S3_BUCKET
 #
@@ -326,7 +333,7 @@ else :
     EMAIL_PASS = 'your gmail app password'
 
 # Local settings.
-# try:
-#     from backend.local_settings import *
-# except ImportError:
-#     pass
+try:
+    from backend.local_settings import *
+except ImportError:
+    pass
