@@ -1,9 +1,9 @@
 {
-  "name": "wanderlist",
+  "name": "Revabot",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "",
-  "author": "Peter Zernia",
+  "author": "Creativea Automaton",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -15,5 +15,5 @@
   },
   "cacheDirectories": [
     "frontend/node_modules"
-  ],
+  ]
 }

@@ -20,6 +20,10 @@
               "subnet-05ffaa7f"
              ], // use the private subnet
             "SecurityGroupIds": [ "sg-e9150a8a" ]
-        }
+        },
+        "exclude":[
+          "/frontend/node_modules/**",
+          "node_modules"
+        ]
     }
 }

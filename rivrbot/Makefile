@@ -14,6 +14,9 @@ migrate:
 up:
 	docker-compose up
 
+collectstatic:
+	docker-compose run wanderlist python3 manage.py collectstatic --noinput
+
 test-js:
 	docker-compose run frontend npm test
 

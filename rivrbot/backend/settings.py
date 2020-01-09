@@ -2,6 +2,7 @@ import os
 # import django_heroku
 import dj_database_url
 import stripe
+import boto3
 
 # stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
 # stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
@@ -43,8 +44,7 @@ SECRET_KEY = 'ui7pf@bh&+40ilc_h$j_f3(!%c&1hwu%sng36yus&&16edgp+2'
 DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost',
-'tah6kfw2uh.execute-api.us-east-2.amazonaws.com','revabot.online',]
-
+'tah6kfw2uh.execute-api.us-east-2.amazonaws.com', 'lds0kwfx36.execute-api.us-east-2.amazonaws.com','revabot.online',]
 
 # Application definition
 
@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "djstripe",
     'django_s3_storage',
+    'boto3'
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -156,7 +157,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/build/static'),
+    os.path.join(BASE_DIR, 'frontend/public'),
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -237,16 +238,44 @@ DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"  # Get it from the section in the Stripe d
 STRIPE_API_VERSION = '2019-09-09'
 # Get it from the section in the Stripe dashboard where you added the webhook endpoint looks like whsec_xxx
 
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+
+s3 = boto3.resource('s3',
+         aws_access_key_id=AWS_ACCESS_KEY_ID,
+         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+# CloudFront  on AWS
+# If you’re using S3 as a CDN (via CloudFront),
+# you’ll probably want this storage to serve those files using that:
+#  here is an example
+# AWS_S3_CUSTOM_DOMAIN = 'cdn.mydomain.com'
+# AWS_S3_CUSTOM_DOMAIN = 'd27uxkp9q22c9z.cloudfront.net'
+
+# WARNING
+# Django’s STATIC_URL must end in a
+# slash and the AWS_S3_CUSTOM_DOMAIN must not.
+# It is best to set this variable indepedently of STATIC_URL.
+
+
+
 # DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
-# YOUR_S3_BUCKET = "revabot-zappa-library"
+YOUR_S3_BUCKET = "revabot-zappa-library"
+AWS_STORAGE_BUCKET_NAME = "revabot-zappa-library"
+AWS_DEFAULT_ACL = None
 #
-# # How to construct S3 URLs ("auto", "path", "virtual").
+# How to construct S3 URLs ("auto", "path", "virtual").
 # AWS_S3_ADDRESSING_STYLE = "auto"
 #
-# #  old staticfile setting
-# # STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+# old staticfile setting
+# STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 # STATICFILES_STORAGE = "django_s3_storage.storage.ManifestStaticS3Storage"
-# AWS_S3_BUCKET_NAME_STATIC = YOUR_S3_BUCKET
+AWS_S3_BUCKET_NAME_STATIC = YOUR_S3_BUCKET
 #
 # # These next two lines will serve the static files directly
 # # from the s3 bucket
