@@ -1,0 +1,14 @@
+{
+  "short_name": "RevaBot",
+  "name": "RevaBot Web App",
+  "icons": [
+    {
+      "src": "https://github.com/peterzernia/wanderlist/blob/master/images/favicon.svg",
+      "sizes": "24x24"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
