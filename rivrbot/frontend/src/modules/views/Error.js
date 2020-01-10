@@ -22,7 +22,7 @@ const Errors = (props) => {
       </p>
     ))
   } else {
-    errorDetails = error.message
+    errorDetails = error
   }
 
   return (

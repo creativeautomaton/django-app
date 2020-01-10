@@ -12,8 +12,5 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     path('', include('django.contrib.auth.urls')),
     # path('.*', TemplateView.as_view(template_name='index.html')),
-    # path('.*', TemplateView.as_view(template_name='index.html')),
-    # path('', TemplateView.as_view(template_name='index.html')),
-     # must be catch-all for pushState to work
-    path('', views.FrontendAppView.as_view()),
+    path(r'', views.FrontendAppView.as_view()),
 ]

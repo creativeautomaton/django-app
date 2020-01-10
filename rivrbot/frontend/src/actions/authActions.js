@@ -73,12 +73,39 @@ export const authRegister = (username, email, password1, password2, home, street
       dispatch({ type: 'ADD_SUCCESS', success: 'You have successfully registered.' })
       // axios.post(`${process.env.REACT_APP_API_URL}/customer-created/webhook/`)
     })
-    .catch((error) => { 
-      console.log(error.response);
-      console.log(error.message);
-      console.log(error.config);
-      dispatch(authFail())
-      dispatch({ type: 'ADD_ERROR', error: error })
+    .catch((error) => {
+      var errorArray = error.response;
+      if(errorArray.data.email){
+        dispatch(authFail())
+        dispatch({ type: 'ADD_ERROR', error: errorArray.data.email[0] })
+      }
+      if(errorArray.data.username){
+        dispatch(authFail())
+        dispatch({ type: 'ADD_ERROR', error: errorArray.data.username[0]  })
+      }
+      if(errorArray.data.password1){
+        // console.log(errorArray.data.password1[0] );
+        dispatch(authFail())
+        dispatch({
+          type: 'ADD_ERROR',
+          error:  'This password is incorrect. Requires: 8 or more characters, 1 or more Uppcase Letters, Atleast one special character (!?/#). '
+        })
+      }
+       
+      // if(errorArray.data.password2){
+      //   // console.log(errorArray.data.password2[0] );
+      //   dispatch(authFail())
+      //   dispatch({
+      //     type: 'ADD_ERROR',
+      //     error:  'This passwords did not match, try again.'
+      //   })
+      // }
+      // if(!errorArray.data.email, !errorArray.data.username, !errorArray.data.password1 ){
+      //   dispatch(authFail())
+      //   dispatch({ type: 'ADD_ERROR', error: error })
+      // }
+      // console.log(error.message);
+      // console.log(error.config);
     })
 }
 
@@ -105,6 +132,7 @@ there is no need to dispatch any actions other than those related to success
 and errors.
 */
 export const requestPasswordReset = (email) => (dispatch) => {
+
   axios.post(`${process.env.REACT_APP_API_URL}/api/v1/rest-auth/password/reset/`, {
     email,
   })

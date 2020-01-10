@@ -3,10 +3,7 @@ import os
 import dj_database_url
 import stripe
 import boto3
-import shlex, subprocess
-
-subprocess.Popen(["cd frontend/ &&npm run start"], shell=True)
-# subprocess.check_call(["npm run start"], shell=True)
+import shlex, subprocess, shutil
 
 # stripe.api_key = 'sk_test_SVYejUhpTGEABCVpFhZJS10X00WpmP3A2w'
 # stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
@@ -44,7 +41,7 @@ SECRET_KEY = 'ui7pf@bh&+40ilc_h$j_f3(!%c&1hwu%sng36yus&&16edgp+2'
 DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost',
-'lds0kwfx36.execute-api.us-east-2.amazonaws.com','revabot.online',]
+'lds0kwfx36.execute-api.us-east-2.amazonaws.com','revabot.online', 'www.revabot.online', ]
 
 # Application definition
 
@@ -152,11 +149,20 @@ USE_L10N = True
 
 USE_TZ = True
 
+#React functions
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
+# REACT_APP_API_URL_DEV='http://localhost:8000'
+REACT_APP_API_URL = '/'
+# REACT_APP_API_URL = 'http://localhost:8000'
+NODE_ENV = 'development'
+
+#Remove React Build folder
+REACT_BUILD_FOLDER = os.path.join(REACT_APP_DIR, 'build')
+# shutil.rmtree(REACT_BUILD_FOLDER, ignore_errors=True)
+# subprocess.Popen(["cd frontend/ && npm run build"], shell=True)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
@@ -200,7 +206,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
-
 # Heroku settings get overridden if local_settings.py exists.
 # django_heroku.settings(locals())
 DEBUG = True
@@ -227,7 +232,6 @@ DATABASES = {
 #     }
 # }
 
-
 SECRET_KEY = 'your secret django key'
 EMAIL_USER = 'your email username'
 EMAIL_PASS = 'your gmail app password'
@@ -248,15 +252,21 @@ STRIPE_API_VERSION = '2019-09-09'
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
-s3 = boto3.resource('s3',
-         aws_access_key_id=AWS_ACCESS_KEY_ID,
-         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+s3 = boto3.resource(
+    's3',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+)
 
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_STORAGE_BUCKET_NAME = "revabot-zappa-library"
+AWS_DEFAULT_ACL = None
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 # CloudFront  on AWS
 # If you’re using S3 as a CDN (via CloudFront),
 # you’ll probably want this storage to serve those files using that:
@@ -268,21 +278,18 @@ s3 = boto3.resource('s3',
 # Django’s STATIC_URL must end in a
 # slash and the AWS_S3_CUSTOM_DOMAIN must not.
 # It is best to set this variable indepedently of STATIC_URL.
+# DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+# YOUR_S3_BUCKET = "revabot-zappa-library"
+# AWS_STORAGE_BUCKET_NAME = "revabot-zappa-library"
+# AWS_DEFAULT_ACL = None
 
-
-
-DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
-YOUR_S3_BUCKET = "revabot-zappa-library"
-AWS_STORAGE_BUCKET_NAME = "revabot-zappa-library"
-AWS_DEFAULT_ACL = None
-#
 # How to construct S3 URLs ("auto", "path", "virtual").
 # AWS_S3_ADDRESSING_STYLE = "auto"
 #
 # old staticfile setting
-STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+# STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 # STATICFILES_STORAGE = "django_s3_storage.storage.ManifestStaticS3Storage"
-AWS_S3_BUCKET_NAME_STATIC = YOUR_S3_BUCKET
+# AWS_S3_BUCKET_NAME_STATIC = YOUR_S3_BUCKET
 #
 # # These next two lines will serve the static files directly
 # # from the s3 bucket
